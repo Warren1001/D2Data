@@ -1,12 +1,89 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Belts(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "belts") {
+class D2Belts(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "belts") {
 	
 	companion object {
+		
+		private val HEADERS = listOf(
+			"name",
+			"numboxes",
+			"box1left",
+			"box1right",
+			"box1top",
+			"box1bottom",
+			"box2left",
+			"box2right",
+			"box2top",
+			"box2bottom",
+			"box3left",
+			"box3right",
+			"box3top",
+			"box3bottom",
+			"box4left",
+			"box4right",
+			"box4top",
+			"box4bottom",
+			"box5left",
+			"box5right",
+			"box5top",
+			"box5bottom",
+			"box6left",
+			"box6right",
+			"box6top",
+			"box6bottom",
+			"box7left",
+			"box7right",
+			"box7top",
+			"box7bottom",
+			"box8left",
+			"box8right",
+			"box8top",
+			"box8bottom",
+			"box9left",
+			"box9right",
+			"box9top",
+			"box9bottom",
+			"box10left",
+			"box10right",
+			"box10top",
+			"box10bottom",
+			"box11left",
+			"box11right",
+			"box11top",
+			"box11bottom",
+			"box12left",
+			"box12right",
+			"box12top",
+			"box12bottom",
+			"box13left",
+			"box13right",
+			"box13top",
+			"box13bottom",
+			"box14left",
+			"box14right",
+			"box14top",
+			"box14bottom",
+			"box15left",
+			"box15right",
+			"box15top",
+			"box15bottom",
+			"box16left",
+			"box16right",
+			"box16top",
+			"box16bottom",
+			"defaultItemTypeCol1",
+			"defaultItemCodeCol1",
+			"defaultItemTypeCol2",
+			"defaultItemCodeCol2",
+			"defaultItemTypeCol3",
+			"defaultItemCodeCol3",
+			"defaultItemTypeCol4",
+			"defaultItemCodeCol4"
+		)
 		
 		const val NAME = "name"
 		const val NUM_BOXES = "numboxes"
@@ -74,7 +151,19 @@ class D2Belts(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "belts"
 		const val BOX_16_RIGHT = "box16right"
 		const val BOX_16_TOP = "box16top"
 		const val BOX_16_BOTTOM = "box16bottom"
+		const val DEFAULT_ITEM_TYPE_COL_1 = "defaultItemTypeCol1"
+		const val DEFAULT_ITEM_CODE_COL_1 = "defaultItemCodeCol1"
+		const val DEFAULT_ITEM_TYPE_COL_2 = "defaultItemTypeCol2"
+		const val DEFAULT_ITEM_CODE_COL_2 = "defaultItemCodeCol2"
+		const val DEFAULT_ITEM_TYPE_COL_3 = "defaultItemTypeCol3"
+		const val DEFAULT_ITEM_CODE_COL_3 = "defaultItemCodeCol3"
+		const val DEFAULT_ITEM_TYPE_COL_4 = "defaultItemTypeCol4"
+		const val DEFAULT_ITEM_CODE_COL_4 = "defaultItemCodeCol4"
 		
+	}
+	
+	init {
+		verify(HEADERS)
 	}
 	
 }

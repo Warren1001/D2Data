@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2MagicSuffix(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "magicsuffix") {
+class D2MagicSuffix(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "magicsuffix") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Name", "version", "spawnable", "rare", "level", "maxlevel", "levelreq", "classspecific", "class", "classlevelreq", "frequency", "group", "mod1code", "mod1param", "mod1min", "mod1max", "mod2code", "mod2param", "mod2min", "mod2max", "mod3code", "mod3param", "mod3min", "mod3max", "transformcolor", "itype1", "itype2", "itype3", "itype4", "itype5", "itype6", "itype7", "etype1", "etype2", "etype3", "etype4", "etype5", "multiply", "add")
 		
 		const val NAME = "Name"
 		const val VERSION = "version"
@@ -49,5 +51,7 @@ class D2MagicSuffix(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "
 		const val ADD = "add"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

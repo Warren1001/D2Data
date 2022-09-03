@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2MonType(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "montype") {
+class D2MonType(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "montype") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("type", "equiv1", "equiv2", "equiv3", "strplur", "element", "*eol")
 		
 		const val TYPE = "type"
 		const val EQUIV_1 = "equiv1"
@@ -17,5 +19,7 @@ class D2MonType(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "mont
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

@@ -1,12 +1,111 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2SetItems(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "setitems") {
+class D2SetItems(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "setitems") {
 	
 	companion object {
+		
+		private val HEADERS = listOf(
+			"index",
+			"*ID",
+			"set",
+			"item",
+			"*ItemName",
+			"rarity",
+			"lvl",
+			"lvl req",
+			"chrtransform",
+			"invtransform",
+			"invfile",
+			"flippyfile",
+			"dropsound",
+			"dropsfxframe",
+			"usesound",
+			"cost mult",
+			"cost add",
+			"add func",
+			"prop1",
+			"par1",
+			"min1",
+			"max1",
+			"prop2",
+			"par2",
+			"min2",
+			"max2",
+			"prop3",
+			"par3",
+			"min3",
+			"max3",
+			"prop4",
+			"par4",
+			"min4",
+			"max4",
+			"prop5",
+			"par5",
+			"min5",
+			"max5",
+			"prop6",
+			"par6",
+			"min6",
+			"max6",
+			"prop7",
+			"par7",
+			"min7",
+			"max7",
+			"prop8",
+			"par8",
+			"min8",
+			"max8",
+			"prop9",
+			"par9",
+			"min9",
+			"max9",
+			"aprop1a",
+			"apar1a",
+			"amin1a",
+			"amax1a",
+			"aprop1b",
+			"apar1b",
+			"amin1b",
+			"amax1b",
+			"aprop2a",
+			"apar2a",
+			"amin2a",
+			"amax2a",
+			"aprop2b",
+			"apar2b",
+			"amin2b",
+			"amax2b",
+			"aprop3a",
+			"apar3a",
+			"amin3a",
+			"amax3a",
+			"aprop3b",
+			"apar3b",
+			"amin3b",
+			"amax3b",
+			"aprop4a",
+			"apar4a",
+			"amin4a",
+			"amax4a",
+			"aprop4b",
+			"apar4b",
+			"amin4b",
+			"amax4b",
+			"aprop5a",
+			"apar5a",
+			"amin5a",
+			"amax5a",
+			"aprop5b",
+			"apar5b",
+			"amin5b",
+			"amax5b",
+			"diablocloneweight",
+			"*eol"
+		)
 		
 		const val INDEX = "index"
 		const val ID = "*ID"
@@ -102,9 +201,13 @@ class D2SetItems(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "set
 		const val A_PAR_5_B = "apar5b"
 		const val A_MIN_5_B = "amin5b"
 		const val A_MAX_5_B = "amax5b"
-		const val WORLD_EVENT = "worldevent"
+		const val DIABLO_CLONE_WEIGHT = "diablocloneweight"
 		const val EOL = "*eol"
 		
+	}
+	
+	init {
+		verify(HEADERS)
 	}
 	
 }

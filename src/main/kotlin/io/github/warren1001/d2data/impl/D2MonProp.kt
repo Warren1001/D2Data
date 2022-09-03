@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2MonProp(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monprop") {
+class D2MonProp(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monprop") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Id", "prop1", "chance1", "par1", "min1", "max1", "prop2", "chance2", "par2", "min2", "max2", "prop3", "chance3", "par3", "min3", "max3", "prop4", "chance4", "par4", "min4", "max4", "prop5", "chance5", "par5", "min5", "max5", "prop6", "chance6", "par6", "min6", "max6", "prop1 (N)", "chance1 (N)", "par1 (N)", "min1 (N)", "max1 (N)", "prop2 (N)", "chance2 (N)", "par2 (N)", "min2 (N)", "max2 (N)", "prop3 (N)", "chance3 (N)", "par3 (N)", "min3 (N)", "max3 (N)", "prop4 (N)", "chance4 (N)", "par4 (N)", "min4 (N)", "max4 (N)", "prop5 (N)", "chance5 (N)", "par5 (N)", "min5 (N)", "max5 (N)", "prop6 (N)", "chance6 (N)", "par6 (N)", "min6 (N)", "max6 (N)", "prop1 (H)", "chance1 (H)", "par1 (H)", "min1 (H)", "max1 (H)", "prop2 (H)", "chance2 (H)", "par2 (H)", "min2 (H)", "max2 (H)", "prop3 (H)", "chance3 (H)", "par3 (H)", "min3 (H)", "max3 (H)", "prop4 (H)", "chance4 (H)", "par4 (H)", "min4 (H)", "max4 (H)", "prop5 (H)", "chance5 (H)", "par5 (H)", "min5 (H)", "max5 (H)", "prop6 (H)", "chance6 (H)", "par6 (H)", "min6 (H)", "max6 (H)", "*eol")
 		
 		const val ID = "Id"
 		const val PROP_1 = "prop1"
@@ -102,5 +104,7 @@ class D2MonProp(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monp
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

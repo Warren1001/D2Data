@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2MonSounds(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monsounds") {
+class D2MonSounds(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monsounds") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Id", "Attack1", "Weapon1", "Att1Del", "Wea1Del", "Att1Prb", "Wea1Vol", "Attack2", "Weapon2", "Att2Del", "Wea2Del", "Att2Prb", "Wea2Vol", "HitSound", "DeathSound", "HitDelay", "DeaDelay", "Skill1", "Skill2", "Skill3", "Skill4", "Footstep", "FootstepLayer", "FsCnt", "FsOff", "FsPrb", "Neutral", "NeuTime", "Init", "Taunt", "Flee", "CvtMo1", "CvtSk1", "CvtTgt1", "CvtMo2", "CvtSk2", "CvtTgt2", "CvtMo3", "CvtSk3", "CvtTgt3", "EOL")
 		
 		const val ID = "Id"
 		const val ATTACK_1 = "Attack1"
@@ -51,5 +53,7 @@ class D2MonSounds(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "mo
 		const val EOL = "EOL"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2MonEquip(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monequip") {
+class D2MonEquip(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monequip") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("monster", "oninit", "level", "item1", "loc1", "mod1", "item2", "loc2", "mod2", "item3", "loc3", "mod3", "*eol")
 		
 		const val MONSTER = "monster"
 		const val ON_INIT = "oninit"
@@ -23,5 +25,7 @@ class D2MonEquip(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "mon
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2MonLvl(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monlvl") {
+class D2MonLvl(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monlvl") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Level", "AC", "AC(N)", "AC(H)", "L-AC", "L-AC(N)", "L-AC(H)", "TH", "TH(N)", "TH(H)", "L-TH", "L-TH(N)", "L-TH(H)", "HP", "HP(N)", "HP(H)", "L-HP", "L-HP(N)", "L-HP(H)", "DM", "DM(N)", "DM(H)", "L-DM", "L-DM(N)", "L-DM(H)", "XP", "XP(N)", "XP(H)", "L-XP", "L-XP(N)", "L-XP(H)")
 		
 		const val LEVEL = "Level"
 		const val AC = "AC"
@@ -41,5 +43,7 @@ class D2MonLvl(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monlv
 		const val L_XP_HELL = "L-XP(H)"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

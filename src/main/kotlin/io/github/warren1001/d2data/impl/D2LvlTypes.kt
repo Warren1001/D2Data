@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2LvlTypes(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "lvltypes") {
+class D2LvlTypes(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "lvltypes") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Name", "Id", "File 1", "File 2", "File 3", "File 4", "File 5", "File 6", "File 7", "File 8", "File 9", "File 10", "File 11", "File 12", "File 13", "File 14", "File 15", "File 16", "File 17", "File 18", "File 19", "File 20", "File 21", "File 22", "File 23", "File 24", "File 25", "File 26", "File 27", "File 28", "File 29", "File 30", "File 31", "File 32", "Act")
 		
 		const val NAME = "Name"
 		const val ID = "Id"
@@ -45,5 +47,7 @@ class D2LvlTypes(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "lvl
 		const val ACT = "Act"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2ObjGroup(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "objgroup") {
+class D2ObjGroup(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "objgroup") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("GroupName", "*ID", "ID0", "DENSITY0", "PROB0", "ID1", "DENSITY1", "PROB1", "ID2", "DENSITY2", "PROB2", "ID3", "DENSITY3", "PROB3", "ID4", "DENSITY4", "PROB4", "ID5", "DENSITY5", "PROB5", "ID6", "DENSITY6", "PROB6", "ID7", "DENSITY7", "PROB7")
 		
 		const val GROUP_NAME = "GroupName"
 		const val ID = "*ID"
@@ -36,5 +38,7 @@ class D2ObjGroup(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "obj
 		const val PROB_7 = "PROB7"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

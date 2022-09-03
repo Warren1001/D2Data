@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2SuperUniques(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "superuniques") {
+class D2SuperUniques(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "superuniques") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Superunique", "Name", "Class", "hcIdx", "MonSound", "Mod1", "Mod2", "Mod3", "MinGrp", "MaxGrp", "AutoPos", "Stacks", "Replaceable", "Utrans", "Utrans(N)", "Utrans(H)", "TC", "TC(N)", "TC(H)", "*eol")
 		
 		const val SUPER_UNIQUE = "Superunique"
 		const val NAME = "Name"
@@ -30,5 +32,7 @@ class D2SuperUniques(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, 
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

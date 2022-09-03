@@ -1,12 +1,36 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2ActInfo(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "actinfo") {
+class D2ActInfo(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "actinfo") {
 
 	companion object {
+		
+		private val HEADERS = listOf(
+			"act",
+			"town",
+			"start",
+			"maxnpcitemlevel",
+			"classlevelrangestart",
+			"classlevelrangeend",
+			"wanderingnpcstart",
+			"wanderingnpcrange",
+			"commonactcof",
+			"waypoint1",
+			"waypoint2",
+			"waypoint3",
+			"waypoint4",
+			"waypoint5",
+			"waypoint6",
+			"waypoint7",
+			"waypoint8",
+			"waypoint9",
+			"wanderingMonsterPopulateChance",
+			"wanderingMonsterRegionTotal",
+			"wanderingPopulateRandomChance"
+		)
 		
 		const val ACT = "act"
 		const val TOWN = "town"
@@ -31,5 +55,7 @@ class D2ActInfo(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "acti
 		const val WANDERING_POPULATE_RANDOM_CHANCE = "wanderingPopulateRandomChance"
 		
 	}
+	
+	init { verify(HEADERS) }
 
 }

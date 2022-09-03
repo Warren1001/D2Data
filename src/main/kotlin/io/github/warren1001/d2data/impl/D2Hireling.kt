@@ -1,12 +1,92 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Hireling(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "hireling") {
+class D2Hireling(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "hireling") {
 	
 	companion object {
+		
+		private val HEADERS = listOf(
+			"Hireling",
+			"*SubType",
+			"Version",
+			"Id",
+			"Class",
+			"Act",
+			"Difficulty",
+			"Level",
+			"Seller",
+			"NameFirst",
+			"NameLast",
+			"Gold",
+			"Exp/Lvl",
+			"HP",
+			"HP/Lvl",
+			"Defense",
+			"Def/Lvl",
+			"Str",
+			"Str/Lvl",
+			"Dex",
+			"Dex/Lvl",
+			"AR",
+			"AR/Lvl",
+			"Dmg-Min",
+			"Dmg-Max",
+			"Dmg/Lvl",
+			"ResistFire",
+			"ResistFire/Lvl",
+			"ResistCold",
+			"ResistCold/Lvl",
+			"ResistLightning",
+			"ResistLightning/Lvl",
+			"ResistPoison",
+			"ResistPoison/Lvl",
+			"HireDesc",
+			"DefaultChance",
+			"Skill1",
+			"Mode1",
+			"Chance1",
+			"ChancePerLvl1",
+			"Level1",
+			"LvlPerLvl1",
+			"Skill2",
+			"Mode2",
+			"Chance2",
+			"ChancePerLvl2",
+			"Level2",
+			"LvlPerLvl2",
+			"Skill3",
+			"Mode3",
+			"Chance3",
+			"ChancePerLvl3",
+			"Level3",
+			"LvlPerLvl3",
+			"Skill4",
+			"Mode4",
+			"Chance4",
+			"ChancePerLvl4",
+			"Level4",
+			"LvlPerLvl4",
+			"Skill5",
+			"Mode5",
+			"Chance5",
+			"ChancePerLvl5",
+			"Level5",
+			"LvlPerLvl5",
+			"Skill6",
+			"Mode6",
+			"Chance6",
+			"ChancePerLvl6",
+			"Level6",
+			"LvlPerLvl6",
+			"HiringMaxLevelDifference",
+			"resurrectcostmultiplier",
+			"resurrectcostdivisor",
+			"resurrectcostmax",
+			"equivalentcharclass"
+		)
 		
 		const val HIRELING = "Hireling"
 		const val SUB_TYPE = "*SubType"
@@ -84,7 +164,12 @@ class D2Hireling(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "hir
 		const val RESURRECT_COST_MULTIPLIER = "resurrectcostmultiplier"
 		const val RESURRECT_COST_DIVISOR = "resurrectcostdivisor"
 		const val RESURRECT_COST_MAX = "resurrectcostmax"
+		const val EQUIVALENT_CHAR_CLASS = "equivalentcharclass"
 		
+	}
+	
+	init {
+		verify(HEADERS)
 	}
 	
 }

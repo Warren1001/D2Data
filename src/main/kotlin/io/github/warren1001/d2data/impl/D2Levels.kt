@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Levels(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "levels") {
+class D2Levels(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "levels") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Name", "*StringName", "Id", "Pal", "Act", "QuestFlag", "QuestFlagEx", "Layer", "SizeX", "SizeY", "SizeX(N)", "SizeY(N)", "SizeX(H)", "SizeY(H)", "OffsetX", "OffsetY", "Depend", "Teleport", "Rain", "Mud", "NoPer", "LOSDraw", "FloorFilter", "BlankScreen", "DrawEdges", "*IsInside", "DrlgType", "LevelType", "SubType", "SubTheme", "SubWaypoint", "SubShrine", "Vis0", "Vis1", "Vis2", "Vis3", "Vis4", "Vis5", "Vis6", "Vis7", "Warp0", "Warp1", "Warp2", "Warp3", "Warp4", "Warp5", "Warp6", "Warp7", "Intensity", "Red", "Green", "Blue", "Portal", "Position", "SaveMonsters", "Quest", "WarpDist", "MonLvl", "MonLvl(N)", "MonLvl(H)", "MonLvlEx", "MonLvlEx(N)", "MonLvlEx(H)", "MonDen", "MonDen(N)", "MonDen(H)", "MonUMin", "MonUMax", "MonUMin(N)", "MonUMax(N)", "MonUMin(H)", "MonUMax(H)", "MonWndr", "MonSpcWalk", "NumMon", "mon1", "mon2", "mon3", "mon4", "mon5", "mon6", "mon7", "mon8", "mon9", "mon10", "mon11", "mon12", "mon13", "mon14", "mon15", "mon16", "mon17", "mon18", "mon19", "mon20", "mon21", "mon22", "mon23", "mon24", "mon25", "rangedspawn", "nmon1", "nmon2", "nmon3", "nmon4", "nmon5", "nmon6", "nmon7", "nmon8", "nmon9", "nmon10", "nmon11", "nmon12", "nmon13", "nmon14", "nmon15", "nmon16", "nmon17", "nmon18", "nmon19", "nmon20", "nmon21", "nmon22", "nmon23", "nmon24", "nmon25", "umon1", "umon2", "umon3", "umon4", "umon5", "umon6", "umon7", "umon8", "umon9", "umon10", "umon11", "umon12", "umon13", "umon14", "umon15", "umon16", "umon17", "umon18", "umon19", "umon20", "umon21", "umon22", "umon23", "umon24", "umon25", "cmon1", "cmon2", "cmon3", "cmon4", "cpct1", "cpct2", "cpct3", "cpct4", "camt1", "camt2", "camt3", "camt4", "Themes", "SoundEnv", "Waypoint", "LevelName", "LevelWarp", "LevelEntry", "ObjGrp0", "ObjGrp1", "ObjGrp2", "ObjGrp3", "ObjGrp4", "ObjGrp5", "ObjGrp6", "ObjGrp7", "ObjPrb0", "ObjPrb1", "ObjPrb2", "ObjPrb3", "ObjPrb4", "ObjPrb5", "ObjPrb6", "ObjPrb7")
 		
 		const val NAME = "Name"
 		const val STRING_NAME = "*StringName"
@@ -195,5 +197,7 @@ class D2Levels(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "level
 		const val OBJ_PRB_7 = "ObjPrb7"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

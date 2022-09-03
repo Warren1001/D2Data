@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2TreasureClassEx(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "treasureclassex") {
+class D2TreasureClassEx(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "treasureclassex") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Treasure Class", "group", "level", "Picks", "Unique", "Set", "Rare", "Magic", "NoDrop", "Item1", "Prob1", "Item2", "Prob2", "Item3", "Prob3", "Item4", "Prob4", "Item5", "Prob5", "Item6", "Prob6", "Item7", "Prob7", "Item8", "Prob8", "Item9", "Prob9", "Item10", "Prob10", "*ItemProbSum", "*ItemProbTotal", "*TreasureClassDropChance", "*eol")
 		
 		const val TREASURE_CLASS = "Treasure Class"
 		const val GROUP = "group"
@@ -43,5 +45,7 @@ class D2TreasureClassEx(manager: D2SheetManager, dir: File): D2Sheet(manager, di
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

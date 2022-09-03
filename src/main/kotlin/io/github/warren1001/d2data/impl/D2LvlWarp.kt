@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2LvlWarp(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "lvlwarp") {
+class D2LvlWarp(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "lvlwarp") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Name", "Id", "SelectX", "SelectY", "SelectDX", "SelectDY", "ExitWalkX", "ExitWalkY", "OffsetX", "OffsetY", "LitVersion", "Tiles", "NoInteract", "Direction", "UniqueId")
 		
 		const val NAME = "Name"
 		const val ID = "Id"
@@ -25,5 +27,7 @@ class D2LvlWarp(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "lvlw
 		const val UNIQUE_ID = "UniqueId"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

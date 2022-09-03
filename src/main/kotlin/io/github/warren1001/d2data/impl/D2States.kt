@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2States(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "states") {
+class D2States(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "states") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("state", "*ID", "group", "remhit", "nosend", "transform", "aura", "curable", "curse", "active", "restrict", "disguise", "attblue", "damblue", "armblue", "rfblue", "rlblue", "rcblue", "stambarblue", "rpblue", "attred", "damred", "armred", "rfred", "rlred", "rcred", "rpred", "exp", "plrstaydeath", "monstaydeath", "bossstaydeath", "hide", "hidedead", "shatter", "udead", "life", "green", "pgsv", "nooverlays", "noclear", "bossinv", "meleeonly", "notondead", "overlay1", "overlay2", "overlay3", "overlay4", "pgsvoverlay", "castoverlay", "removerlay", "stat", "setfunc", "remfunc", "missile", "skill", "itemtype", "itemtrans", "colorpri", "colorshift", "light-r", "light-g", "light-b", "onsound", "offsound", "gfxtype", "gfxclass", "cltevent", "clteventfunc", "cltactivefunc", "srvactivefunc", "canstack", "*eol")
 		
 		const val STATE = "state"
 		const val ID = "*ID"
@@ -82,5 +84,7 @@ class D2States(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "state
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

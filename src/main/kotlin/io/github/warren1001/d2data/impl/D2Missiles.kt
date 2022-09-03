@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Missiles(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "missiles") {
+class D2Missiles(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "missiles") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Missile", "*ID", "pCltDoFunc", "pCltHitFunc", "pSrvDoFunc", "pSrvHitFunc", "pSrvDmgFunc", "SrvCalc1", "*srv calc 1 desc", "Param1", "*param1 desc", "Param2", "*param2 desc", "Param3", "*param3 desc", "Param4", "*param4 desc", "Param5", "*param5 desc", "CltCalc1", "*client calc 1 desc", "CltParam1", "*client param1 desc", "CltParam2", "*client param2 desc", "CltParam3", "*client param3 desc", "CltParam4", "*client param4 desc", "CltParam5", "*client param5 desc", "SHitCalc1", "*server hit calc 1 desc", "sHitPar1", "*server hit param1 desc", "sHitPar2", "*server hit param2 desc", "sHitPar3", "*server hit param3 desc", "CHitCalc1", "*client hit calc1 desc", "cHitPar1", "*client hit param1 desc", "cHitPar2", "*client hit param2 desc", "cHitPar3", "*client hit param3 desc", "DmgCalc1", "*damage calc 1", "dParam1", "*damage param1 desc", "dParam2", "*damage param2 desc", "Vel", "MaxVel", "VelLev", "Accel", "Range", "LevRange", "Light", "Flicker", "Red", "Green", "Blue", "InitSteps", "Activate", "LoopAnim", "CelFile", "animrate", "AnimLen", "AnimSpeed", "RandStart", "SubLoop", "SubStart", "SubStop", "CollideType", "CollideKill", "CollideFriend", "LastCollide", "Collision", "ClientCol", "ClientSend", "NextHit", "NextDelay", "xoffset", "yoffset", "zoffset", "Size", "SrcTown", "CltSrcTown", "CanDestroy", "ToHit", "AlwaysExplode", "Explosion", "Town", "NoUniqueMod", "NoMultiShot", "Holy", "CanSlow", "ReturnFire", "GetHit", "SoftHit", "KnockBack", "Trans", "Pierce", "MissileSkill", "Skill", "ResultFlags", "HitFlags", "HitShift", "ApplyMastery", "SrcDamage", "Half2HSrc", "SrcMissDmg", "MinDamage", "MinLevDam1", "MinLevDam2", "MinLevDam3", "MinLevDam4", "MinLevDam5", "MaxDamage", "MaxLevDam1", "MaxLevDam2", "MaxLevDam3", "MaxLevDam4", "MaxLevDam5", "DmgSymPerCalc", "EType", "EMin", "MinELev1", "MinELev2", "MinELev3", "MinELev4", "MinELev5", "EMax", "MaxELev1", "MaxELev2", "MaxELev3", "MaxELev4", "MaxELev5", "EDmgSymPerCalc", "ELen", "ELevLen1", "ELevLen2", "ELevLen3", "HitClass", "NumDirections", "LocalBlood", "DamageRate", "TravelSound", "HitSound", "ProgSound", "ProgOverlay", "ExplosionMissile", "SubMissile1", "SubMissile2", "SubMissile3", "HitSubMissile1", "HitSubMissile2", "HitSubMissile3", "HitSubMissile4", "CltSubMissile1", "CltSubMissile2", "CltSubMissile3", "CltHitSubMissile1", "CltHitSubMissile2", "CltHitSubMissile3", "CltHitSubMissile4", "*eol")
 		
 		const val MISSILE = "Missile"
 		const val ID = "*ID"
@@ -179,5 +181,7 @@ class D2Missiles(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "mis
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

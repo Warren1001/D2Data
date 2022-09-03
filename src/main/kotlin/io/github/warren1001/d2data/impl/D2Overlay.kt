@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Overlay(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "overlay") {
+class D2Overlay(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "overlay") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("overlay", "*ID", "Filename", "version", "*Frames", "Character", "PreDraw", "1ofN", "Xoffset", "Yoffset", "Height1", "Height2", "Height3", "Height4", "AnimRate", "LoopWaitTime", "Trans", "InitRadius", "Radius", "Red", "Green", "Blue", "NumDirections", "LocalBlood")
 		
 		const val OVERLAY = "overlay"
 		const val ID = "*ID"
@@ -34,5 +36,7 @@ class D2Overlay(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "over
 		const val LOCAL_BLOOD = "LocalBlood"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

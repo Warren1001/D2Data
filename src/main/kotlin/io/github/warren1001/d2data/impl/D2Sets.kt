@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Sets(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "sets") {
+class D2Sets(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "sets") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("index", "name", "version", "PCode2a", "PParam2a", "PMin2a", "PMax2a", "PCode2b", "PParam2b", "PMin2b", "PMax2b", "PCode3a", "PParam3a", "PMin3a", "PMax3a", "PCode3b", "PParam3b", "PMin3b", "PMax3b", "PCode4a", "PParam4a", "PMin4a", "PMax4a", "PCode4b", "PParam4b", "PMin4b", "PMax4b", "PCode5a", "PParam5a", "PMin5a", "PMax5a", "PCode5b", "PParam5b", "PMin5b", "PMax5b", "FCode1", "FParam1", "FMin1", "FMax1", "FCode2", "FParam2", "FMin2", "FMax2", "FCode3", "FParam3", "FMin3", "FMax3", "FCode4", "FParam4", "FMin4", "FMax4", "FCode5", "FParam5", "FMin5", "FMax5", "FCode6", "FParam6", "FMin6", "FMax6", "FCode7", "FParam7", "FMin7", "FMax7", "FCode8", "FParam8", "FMin8", "FMax8", "*eol")
 		
 		const val INDEX = "index"
 		const val NAME = "name"
@@ -78,5 +80,7 @@ class D2Sets(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "sets") 
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

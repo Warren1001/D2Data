@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2LvlSub(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "lvlsub") {
+class D2LvlSub(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "lvlsub") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Name", "Type", "File", "CheckAll", "BordType", "GridSize", "Dt1Mask", "Prob0", "Trials0", "Max0", "Prob1", "Trials1", "Max1", "Prob2", "Trials2", "Max2", "Prob3", "Trials3", "Max3", "Prob4", "Trials4", "Max4")
 		
 		const val NAME = "Name"
 		const val TYPE = "Type"
@@ -32,5 +34,7 @@ class D2LvlSub(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "lvlsu
 		const val MAX_4 = "Max4"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

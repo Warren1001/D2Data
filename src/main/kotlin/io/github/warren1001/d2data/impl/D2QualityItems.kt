@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2QualityItems(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "qualityitems") {
+class D2QualityItems(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "qualityitems") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("mod1code", "mod1param", "mod1min", "mod1max", "mod2code", "mod2param", "mod2min", "mod2max", "armor", "weapon", "shield", "scepter", "wand", "staff", "bow", "boots", "gloves", "belt")
 		
 		const val MOD_1_CODE = "mod1code"
 		const val MOD_1_PARAM = "mod1param"
@@ -28,5 +30,7 @@ class D2QualityItems(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, 
 		const val BELT = "belt"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

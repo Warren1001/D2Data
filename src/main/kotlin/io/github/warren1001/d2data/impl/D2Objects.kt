@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Objects(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "objects") {
+class D2Objects(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "objects") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Class", "Name", "*Description", "*ID", "Token", "Selectable0", "Selectable1", "Selectable2", "Selectable3", "Selectable4", "Selectable5", "Selectable6", "Selectable7", "SizeX", "SizeY", "FrameCnt0", "FrameCnt1", "FrameCnt2", "FrameCnt3", "FrameCnt4", "FrameCnt5", "FrameCnt6", "FrameCnt7", "FrameDelta0", "FrameDelta1", "FrameDelta2", "FrameDelta3", "FrameDelta4", "FrameDelta5", "FrameDelta6", "FrameDelta7", "CycleAnim0", "CycleAnim1", "CycleAnim2", "CycleAnim3", "CycleAnim4", "CycleAnim5", "CycleAnim6", "CycleAnim7", "Lit0", "Lit1", "Lit2", "Lit3", "Lit4", "Lit5", "Lit6", "Lit7", "BlocksLight0", "BlocksLight1", "BlocksLight2", "BlocksLight3", "BlocksLight4", "BlocksLight5", "BlocksLight6", "BlocksLight7", "HasCollision0", "HasCollision1", "HasCollision2", "HasCollision3", "HasCollision4", "HasCollision5", "HasCollision6", "HasCollision7", "IsAttackable0", "Start0", "Start1", "Start2", "Start3", "Start4", "Start5", "Start6", "Start7", "EnvEffect", "IsDoor", "BlocksVis", "Orientation", "OrderFlag0", "OrderFlag1", "OrderFlag2", "OrderFlag3", "OrderFlag4", "OrderFlag5", "OrderFlag6", "OrderFlag7", "PreOperate", "Mode0", "Mode1", "Mode2", "Mode3", "Mode4", "Mode5", "Mode6", "Mode7", "Yoffset", "Xoffset", "Draw", "Red", "Green", "Blue", "HD", "TR", "LG", "RA", "LA", "RH", "LH", "SH", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "TotalPieces", "SubClass", "Xspace", "Yspace", "NameOffset", "MonsterOK", "ShrineFunction", "Restore", "Parm0", "Parm1", "Parm2", "Parm3", "Parm4", "Lockable", "Gore", "Sync", "Damage", "Overlay", "CollisionSubst", "Left", "Top", "Width", "Height", "OperateFn", "PopulateFn", "InitFn", "ClientFn", "RestoreVirgins", "BlockMissile", "DrawUnder", "OpenWarp", "AutoMap")
 		
 		const val CLASS = "Class"
 		const val NAME = "Name"
@@ -157,5 +159,7 @@ class D2Objects(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "obje
 		const val AUTO_MAP = "AutoMap"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

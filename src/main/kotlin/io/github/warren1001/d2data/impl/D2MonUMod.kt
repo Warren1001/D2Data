@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2MonUMod(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monumod") {
+class D2MonUMod(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monumod") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("uniquemod", "id", "enabled", "version", "xfer", "champion", "fPick", "exclude1", "exclude2", "cpick", "cpick (N)", "cpick (H)", "upick", "upick (N)", "upick (H)", "constants", "*constant desc", "*eol")
 		
 		const val UNIQUE_MOD = "uniquemod"
 		const val ID = "id"
@@ -28,5 +30,7 @@ class D2MonUMod(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monu
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

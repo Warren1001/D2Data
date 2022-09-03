@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Inventory(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "inventory") {
+class D2Inventory(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "inventory") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("class", "invLeft", "invRight", "invTop", "invBottom", "gridX", "gridY", "gridLeft", "gridRight", "gridTop", "gridBottom", "gridBoxWidth", "gridBoxHeight", "rArmLeft", "rArmRight", "rArmTop", "rArmBottom", "rArmWidth", "rArmHeight", "torsoLeft", "torsoRight", "torsoTop", "torsoBottom", "torsoWidth", "torsoHeight", "lArmLeft", "lArmRight", "lArmTop", "lArmBottom", "lArmWidth", "lArmHeight", "headLeft", "headRight", "headTop", "headBottom", "headWidth", "headHeight", "neckLeft", "neckRight", "neckTop", "neckBottom", "neckWidth", "neckHeight", "rHandLeft", "rHandRight", "rHandTop", "rHandBottom", "rHandWidth", "rHandHeight", "lHandLeft", "lHandRight", "lHandTop", "lHandBottom", "lHandWidth", "lHandHeight", "beltLeft", "beltRight", "beltTop", "beltBottom", "beltWidth", "beltHeight", "feetLeft", "feetRight", "feetTop", "feetBottom", "feetWidth", "feetHeight", "glovesLeft", "glovesRight", "glovesTop", "glovesBottom", "glovesWidth", "glovesHeight")
 		
 		const val CLASS = "class"
 		const val INV_LEFT = "invLeft"
@@ -83,5 +85,7 @@ class D2Inventory(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "in
 		const val GLOVES_HEIGHT = "glovesHeight"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

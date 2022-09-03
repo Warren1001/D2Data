@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2NPC(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "npc") {
+class D2NPC(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "npc") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("npc", "buy mult", "sell mult", "rep mult", "questflag A", "questbuymult A", "questsellmult A", "questrepmult A", "questflag B", "questbuymult B", "questsellmult B", "questrepmult B", "questflag C", "questbuymult C", "questsellmult C", "questrepmult C", "max buy", "max buy (N)", "max buy (H)")
 		
 		const val NPC = "npc"
 		const val BUY_MULT = "buy mult"
@@ -29,5 +31,7 @@ class D2NPC(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "npc") {
 		const val MAX_BUY_HELL = "max buy (H)"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

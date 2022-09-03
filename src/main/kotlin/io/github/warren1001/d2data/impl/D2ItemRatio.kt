@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2ItemRatio(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "itemratio") {
+class D2ItemRatio(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "itemratio") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Function", "Version", "Uber", "Class Specific", "Unique", "UniqueDivisor", "UniqueMin", "Rare", "RareDivisor", "RareMin", "Set", "SetDivisor", "SetMin", "Magic", "MagicDivisor", "MagicMin", "HiQuality", "HiQualityDivisor", "Normal", "NormalDivisor")
 		
 		const val FUNCTION = "Function"
 		const val VERSION = "Version"
@@ -30,5 +32,7 @@ class D2ItemRatio(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "it
 		const val NORMAL_DIVISOR = "NormalDivisor"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

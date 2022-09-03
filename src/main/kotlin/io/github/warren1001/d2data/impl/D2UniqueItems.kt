@@ -1,12 +1,86 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2UniqueItems(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "uniqueitems") {
+class D2UniqueItems(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "uniqueitems") {
 	
 	companion object {
+		
+		private val HEADERS = listOf(
+			"index",
+			"*ID",
+			"version",
+			"enabled",
+			"ladder",
+			"rarity",
+			"nolimit",
+			"lvl",
+			"lvl req",
+			"code",
+			"*ItemName",
+			"carry1",
+			"cost mult",
+			"cost add",
+			"chrtransform",
+			"invtransform",
+			"flippyfile",
+			"invfile",
+			"dropsound",
+			"dropsfxframe",
+			"usesound",
+			"prop1",
+			"par1",
+			"min1",
+			"max1",
+			"prop2",
+			"par2",
+			"min2",
+			"max2",
+			"prop3",
+			"par3",
+			"min3",
+			"max3",
+			"prop4",
+			"par4",
+			"min4",
+			"max4",
+			"prop5",
+			"par5",
+			"min5",
+			"max5",
+			"prop6",
+			"par6",
+			"min6",
+			"max6",
+			"prop7",
+			"par7",
+			"min7",
+			"max7",
+			"prop8",
+			"par8",
+			"min8",
+			"max8",
+			"prop9",
+			"par9",
+			"min9",
+			"max9",
+			"prop10",
+			"par10",
+			"min10",
+			"max10",
+			"prop11",
+			"par11",
+			"min11",
+			"max11",
+			"prop12",
+			"par12",
+			"min12",
+			"max12",
+			"diablocloneweight",
+			"*eol"
+		)
 		
 		const val INDEX = "index"
 		const val ID = "*ID"
@@ -77,9 +151,13 @@ class D2UniqueItems(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "
 		const val PAR_12 = "par12"
 		const val MIN_12 = "min12"
 		const val MAX_12 = "max12"
-		const val WORLD_EVENT = "worldevent"
+		const val DIABLO_CLONE_WEIGHT = "diablocloneweight"
 		const val EOL = "*eol"
 		
+	}
+	
+	init {
+		verify(HEADERS)
 	}
 	
 }

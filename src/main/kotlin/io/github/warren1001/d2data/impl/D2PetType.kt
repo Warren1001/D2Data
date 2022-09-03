@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2PetType(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "pettype") {
+class D2PetType(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "pettype") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("pet type", "group", "basemax", "warp", "range", "partysend", "unsummon", "automap", "name", "drawhp", "icontype", "baseicon", "mclass1", "micon1", "mclass2", "micon2", "mclass3", "micon3", "mclass4", "micon4")
 		
 		const val PET_TYPE = "pet type"
 		const val GROUP = "group"
@@ -30,5 +32,7 @@ class D2PetType(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "pett
 		const val M_ICON_4 = "micon4"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

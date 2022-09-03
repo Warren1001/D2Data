@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Gems(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "gems") {
+class D2Gems(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "gems") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("name", "letter", "transform", "code", "weaponMod1Code", "weaponMod1Param", "weaponMod1Min", "weaponMod1Max", "weaponMod2Code", "weaponMod2Param", "weaponMod2Min", "weaponMod2Max", "weaponMod3Code", "weaponMod3Param", "weaponMod3Min", "weaponMod3Max", "helmMod1Code", "helmMod1Param", "helmMod1Min", "helmMod1Max", "helmMod2Code", "helmMod2Param", "helmMod2Min", "helmMod2Max", "helmMod3Code", "helmMod3Param", "helmMod3Min", "helmMod3Max", "shieldMod1Code", "shieldMod1Param", "shieldMod1Min", "shieldMod1Max", "shieldMod2Code", "shieldMod2Param", "shieldMod2Min", "shieldMod2Max", "shieldMod3Code", "shieldMod3Param", "shieldMod3Min", "shieldMod3Max")
 		
 		const val NAME = "name"
 		const val LETTER = "letter"
@@ -50,5 +52,7 @@ class D2Gems(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "gems") 
 		const val SHIELD_MOD_3_MAX = "shieldMod3Max"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Shrines(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "shrines") {
+class D2Shrines(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "shrines") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Name", "*Shrine Type", "*Effect", "Code", "Arg0", "Arg1", "Duration in frames", "reset time in minutes", "rarity", "StringName", "StringPhrase", "effectclass", "LevelMin")
 		
 		const val NAME = "Name"
 		const val SHRINE_TYPE = "*Shrine Type"
@@ -23,5 +25,7 @@ class D2Shrines(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "shri
 		const val LEVEL_MIN = "LevelMin"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

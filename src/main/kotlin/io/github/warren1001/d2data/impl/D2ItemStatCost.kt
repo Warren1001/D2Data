@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2ItemStatCost(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "itemstatcost") {
+class D2ItemStatCost(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "itemstatcost") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Stat", "*ID", "Send Other", "Signed", "Send Bits", "Send Param Bits", "UpdateAnimRate", "Saved", "CSvSigned", "CSvBits", "CSvParam", "fCallback", "fMin", "MinAccr", "Encode", "Add", "Multiply", "ValShift", "1.09-Save Bits", "1.09-Save Add", "Save Bits", "Save Add", "Save Param Bits", "keepzero", "op", "op param", "op base", "op stat1", "op stat2", "op stat3", "direct", "maxstat", "damagerelated", "itemevent1", "itemeventfunc1", "itemevent2", "itemeventfunc2", "descpriority", "descfunc", "descval", "descstrpos", "descstrneg", "descstr2", "dgrp", "dgrpfunc", "dgrpval", "dgrpstrpos", "dgrpstrneg", "dgrpstr2", "stuff", "advdisplay", "*eol")
 		
 		const val STAT = "Stat"
 		const val ID = "*ID"
@@ -62,5 +64,7 @@ class D2ItemStatCost(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, 
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

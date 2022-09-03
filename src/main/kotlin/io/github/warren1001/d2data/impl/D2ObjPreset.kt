@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2ObjPreset(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "objpreset") {
+class D2ObjPreset(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "objpreset") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Index", "Act", "ObjectClass", "*Notes", "*eol")
 		
 		const val INDEX = "Index"
 		const val ACT = "Act"
@@ -15,5 +17,7 @@ class D2ObjPreset(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "ob
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2AutoMap(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "automap") {
+class D2AutoMap(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "automap") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("LevelName", "TileName", "Style", "StartSequence", "EndSequence", "*Type1", "Cel1", "*Type2", "Cel2", "*Type3", "Cel3", "*Type4", "Cel4")
 		
 		const val LEVEL_NAME = "LevelName"
 		const val TILE_NAME = "TileName"
@@ -23,5 +25,7 @@ class D2AutoMap(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "auto
 		const val CEL_4 = "Cel4"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

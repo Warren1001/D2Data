@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Books(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "books") {
+class D2Books(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "books") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Name", "ScrollSpellCode", "BookSpellCode", "pSpell", "SpellIcon", "ScrollSkill", "BookSkill", "BaseCost", "CostPerCharge")
 		
 		const val NAME = "Name"
 		const val SCROLL_SPELL_CODE = "ScrollSpellCode"
@@ -19,5 +21,7 @@ class D2Books(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "books"
 		const val COST_PER_CHARGE = "CostPerCharge"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

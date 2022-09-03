@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2CharStats(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "charstats") {
+class D2CharStats(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "charstats") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("class", "str", "dex", "int", "vit", "stamina", "hpadd", "ManaRegen", "ToHitFactor", "WalkVelocity", "RunVelocity", "RunDrain", "*Comment", "LifePerLevel", "StaminaPerLevel", "ManaPerLevel", "LifePerVitality", "StaminaPerVitality", "ManaPerMagic", "StatPerLevel", "SkillsPerLevel", "LightRadius", "BlockFactor", "MinimumCastingDelay", "StartSkill", "Skill 1", "Skill 2", "Skill 3", "Skill 4", "Skill 5", "Skill 6", "Skill 7", "Skill 8", "Skill 9", "Skill 10", "StrAllSkills", "StrSkillTab1", "StrSkillTab2", "StrSkillTab3", "StrClassOnly", "HealthPotionPercent", "ManaPotionPercent", "baseWClass", "item1", "item1loc", "item1count", "item1quality", "item2", "item2loc", "item2count", "item2quality", "item3", "item3loc", "item3count", "item3quality", "item4", "item4loc", "item4count", "item4quality", "item5", "item5loc", "item5count", "item5quality", "item6", "item6loc", "item6count", "item6quality", "item7", "item7loc", "item7count", "item7quality", "item8", "item8loc", "item8count", "item8quality", "item9", "item9loc", "item9count", "item9quality", "item10", "item10loc", "item10count", "item10quality")
 		
 		const val CLASS = "class"
 		const val STR = "str"
@@ -93,5 +95,7 @@ class D2CharStats(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "ch
 		const val ITEM_10_QUALITY = "item10quality"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

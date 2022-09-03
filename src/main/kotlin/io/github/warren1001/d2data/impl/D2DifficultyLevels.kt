@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2DifficultyLevels(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "difficultylevels") {
+class D2DifficultyLevels(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "difficultylevels") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Name", "ResistPenalty", "ResistPenaltyNonExpansion", "DeathExpPenalty", "MonsterSkillBonus", "MonsterFreezeDivisor", "MonsterColdDivisor", "AiCurseDivisor", "LifeStealDivisor", "ManaStealDivisor", "UniqueDamageBonus", "ChampionDamageBonus", "PlayerDamagePercentVSPlayer", "PlayerDamagePercentVSMercenary", "PlayerDamagePercentVSPrimeEvil", "PlayerHitReactBufferVSPlayer", "PlayerHitReactBufferVSMonster", "MercenaryDamagePercentVSPlayer", "MercenaryDamagePercentVSMercenary", "MercenaryDamagePercentVSBoss", "MercenaryMaxStunLength", "PrimeEvilDamagePercentVSPlayer", "PrimeEvilDamagePercentVSMercenary", "PrimeEvilDamagePercentVSPet", "PetDamagePercentVSPlayer", "MonsterCEDamagePercent", "MonsterFireEnchantExplosionDamagePercent", "StaticFieldMin", "GambleRare", "GambleSet", "GambleUnique", "GambleUber", "GambleUltra")
 		
 		const val NAME = "Name"
 		const val RESIST_PENALTY = "ResistPenalty"
@@ -43,5 +45,7 @@ class D2DifficultyLevels(manager: D2SheetManager, dir: File): D2Sheet(manager, d
 		const val GAMBLE_ULTRA = "GambleUltra"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

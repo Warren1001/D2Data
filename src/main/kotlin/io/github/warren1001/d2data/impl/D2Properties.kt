@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Properties(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "properties") {
+class D2Properties(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "properties") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("code", "*Enabled", "func1", "stat1", "set1", "val1", "func2", "stat2", "set2", "val2", "func3", "stat3", "set3", "val3", "func4", "stat4", "set4", "val4", "func5", "stat5", "set5", "val5", "func6", "stat6", "set6", "val6", "func7", "stat7", "set7", "val7", "*Tooltip", "*Parameter", "*Min", "*Max", "*Notes", "*eol")
 		
 		const val CODE = "code"
 		const val ENABLED = "*Enabled"
@@ -46,5 +48,7 @@ class D2Properties(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "p
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

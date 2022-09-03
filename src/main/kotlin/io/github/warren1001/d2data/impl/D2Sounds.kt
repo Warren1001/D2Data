@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Sounds(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "sounds") {
+class D2Sounds(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "sounds") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Sound", "*Index", "Redirect", "Channel", "FileName", "IsLocal", "IsMusic", "IsAmbientScene", "IsAmbientEvent", "IsUI", "Volume Min", "Volume Max", "Pitch Min", "Pitch Max", "Group Size", "Group Weight", "Loop", "Fade In", "Fade Out", "Defer Inst", "Stop Inst", "Duration", "Compound", "Falloff", "LFEMix", "3dSpread", "Priority", "Stream", "Is2D", "Tracking", "Solo", "Music Vol", "Block 1", "Block 2", "Block 3", "HDOptOut", "Delay", "4737")
 		
 		const val SOUND = "Sound"
 		const val INDEX = "*Index"
@@ -48,5 +50,7 @@ class D2Sounds(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "sound
 		const val HEADER_4737 = "4737"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

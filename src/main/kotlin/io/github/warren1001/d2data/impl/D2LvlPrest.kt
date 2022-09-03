@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2LvlPrest(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "lvlprest") {
+class D2LvlPrest(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "lvlprest") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Name", "Def", "LevelId", "Populate", "Logicals", "Outdoors", "Animate", "KillEdge", "FillBlanks", "SizeX", "SizeY", "AutoMap", "Scan", "Pops", "PopPad", "Files", "File1", "File2", "File3", "File4", "File5", "File6", "Dt1Mask")
 		
 		const val NAME = "Name"
 		const val DEF = "Def"
@@ -33,5 +35,7 @@ class D2LvlPrest(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "lvl
 		const val DT_1_MASK = "Dt1Mask"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

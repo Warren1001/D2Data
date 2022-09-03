@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2MonAI(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monai") {
+class D2MonAI(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monai") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("AI", "*aip1", "*aip2", "*aip3", "*aip4", "*aip5", "*aip6", "*aip7", "*aip8", "*eol")
 		
 		const val AI = "AI"
 		const val AIP_1 = "*aip1"
@@ -20,5 +22,7 @@ class D2MonAI(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monai"
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

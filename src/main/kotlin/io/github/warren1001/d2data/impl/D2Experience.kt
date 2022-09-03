@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2Experience(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "experience") {
+class D2Experience(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "experience") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("Level", "Amazon", "Sorceress", "Necromancer", "Paladin", "Barbarian", "Druid", "Assassin", "ExpRatio")
 		
 		const val LEVEL = "Level"
 		const val AMAZON = "Amazon"
@@ -19,5 +21,7 @@ class D2Experience(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "e
 		const val EXP_RATIO = "ExpRatio"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

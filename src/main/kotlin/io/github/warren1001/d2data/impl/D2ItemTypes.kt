@@ -1,12 +1,14 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2ItemTypes(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "itemtypes") {
+class D2ItemTypes(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "itemtypes") {
 	
 	companion object {
+		
+		private val HEADERS = listOf("ItemType", "Code", "Equiv1", "Equiv2", "Repair", "Body", "BodyLoc1", "BodyLoc2", "Shoots", "Quiver", "Throwable", "Reload", "ReEquip", "AutoStack", "Magic", "Rare", "Normal", "Beltable", "MaxSockets1", "MaxSocketsLevelThreshold1", "MaxSockets2", "MaxSocketsLevelThreshold2", "MaxSockets3", "TreasureClass", "Rarity", "StaffMods", "Class", "VarInvGfx", "InvGfx1", "InvGfx2", "InvGfx3", "InvGfx4", "InvGfx5", "InvGfx6", "StorePage", "*eol")
 		
 		const val ITEM_TYPE = "ItemType"
 		const val CODE = "Code"
@@ -46,5 +48,7 @@ class D2ItemTypes(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "it
 		const val EOL = "*eol"
 		
 	}
+	
+	init { verify(HEADERS) }
 	
 }

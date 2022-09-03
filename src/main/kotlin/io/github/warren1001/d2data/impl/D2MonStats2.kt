@@ -1,12 +1,142 @@
 package io.github.warren1001.d2data.impl
 
 import io.github.warren1001.d2data.D2Sheet
-import io.github.warren1001.d2data.D2SheetManager
+import io.github.warren1001.d2data.D2Sheets
 import java.io.File
 
-class D2MonStats2(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "monstats2") {
+class D2MonStats2(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "monstats2") {
 	
 	companion object {
+		
+		private val HEADERS = listOf(
+			"Id",
+			"*hcIdx",
+			"Height",
+			"OverlayHeight",
+			"pixHeight",
+			"SizeX",
+			"SizeY",
+			"spawnCol",
+			"MeleeRng",
+			"BaseW",
+			"HitClass",
+			"HDv",
+			"TRv",
+			"LGv",
+			"Rav",
+			"Lav",
+			"RHv",
+			"LHv",
+			"SHv",
+			"S1v",
+			"S2v",
+			"S3v",
+			"S4v",
+			"S5v",
+			"S6v",
+			"S7v",
+			"S8v",
+			"HD",
+			"TR",
+			"LG",
+			"RA",
+			"LA",
+			"RH",
+			"LH",
+			"SH",
+			"S1",
+			"S2",
+			"S3",
+			"S4",
+			"S5",
+			"S6",
+			"S7",
+			"S8",
+			"TotalPieces",
+			"mDT",
+			"mNU",
+			"mWL",
+			"mGH",
+			"mA1",
+			"mA2",
+			"mBL",
+			"mSC",
+			"mS1",
+			"mS2",
+			"mS3",
+			"mS4",
+			"mDD",
+			"mKB",
+			"mSQ",
+			"mRN",
+			"dDT",
+			"dNU",
+			"dWL",
+			"dGH",
+			"dA1",
+			"dA2",
+			"dBL",
+			"dSC",
+			"dS1",
+			"dS2",
+			"dS3",
+			"dS4",
+			"dDD",
+			"dKB",
+			"dSQ",
+			"dRN",
+			"A1mv",
+			"A2mv",
+			"SCmv",
+			"S1mv",
+			"S2mv",
+			"S3mv",
+			"S4mv",
+			"noGfxHitTest",
+			"htTop",
+			"htLeft",
+			"htWidth",
+			"htHeight",
+			"restore",
+			"automapCel",
+			"noMap",
+			"noOvly",
+			"isSel",
+			"alSel",
+			"noSel",
+			"shiftSel",
+			"corpseSel",
+			"isAtt",
+			"revive",
+			"limitCorpses",
+			"critter",
+			"small",
+			"large",
+			"soft",
+			"inert",
+			"objCol",
+			"deadCol",
+			"unflatDead",
+			"Shadow",
+			"noUniqueShift",
+			"compositeDeath",
+			"localBlood",
+			"Bleed",
+			"Light",
+			"light-r",
+			"light-g",
+			"light-b",
+			"Utrans",
+			"Utrans(N)",
+			"Utrans(H)",
+			"InfernoLen",
+			"InfernoAnim",
+			"InfernoRollback",
+			"ResurrectMode",
+			"ResurrectSkill",
+			"SpawnUniqueMod",
+			"*eol"
+		)
 		
 		const val ID = "Id"
 		const val HC_IDX = "*hcIdx"
@@ -107,6 +237,7 @@ class D2MonStats2(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "mo
 		const val CORPSE_SEL = "corpseSel"
 		const val IS_ATT = "isAtt"
 		const val REVIVE = "revive"
+		const val LIMIT_CORPSES = "limitCorpses"
 		const val CRITTER = "critter"
 		const val SMALL = "small"
 		const val LARGE = "large"
@@ -135,6 +266,10 @@ class D2MonStats2(manager: D2SheetManager, dir: File): D2Sheet(manager, dir, "mo
 		const val SPAWN_UNIQUE_MOD = "SpawnUniqueMod"
 		const val EOL = "*eol"
 		
+	}
+	
+	init {
+		verify(HEADERS)
 	}
 	
 }
