@@ -14,6 +14,6 @@ class D2WanderingMon(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "wande
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

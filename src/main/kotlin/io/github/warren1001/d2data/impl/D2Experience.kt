@@ -22,6 +22,6 @@ class D2Experience(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "experie
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

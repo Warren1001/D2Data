@@ -8,7 +8,8 @@ class D2SuperUniques(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "super
 	
 	companion object {
 		
-		private val HEADERS = listOf("Superunique", "Name", "Class", "hcIdx", "MonSound", "Mod1", "Mod2", "Mod3", "MinGrp", "MaxGrp", "AutoPos", "Stacks", "Replaceable", "Utrans", "Utrans(N)", "Utrans(H)", "TC", "TC(N)", "TC(H)", "*eol")
+		private val HEADERS = listOf("Superunique", "Name", "Class", "hcIdx", "MonSound", "Mod1", "Mod2", "Mod3", "MinGrp", "MaxGrp", "AutoPos", "Stacks", "Replaceable", "Utrans", "Utrans(N)",
+			"Utrans(H)", "TC", "TC Desecrated", "TC(N)", "TC(N) Desecrated", "TC(H)", "TC(H) Desecrated", "*eol")
 		
 		const val SUPER_UNIQUE = "Superunique"
 		const val NAME = "Name"
@@ -27,12 +28,15 @@ class D2SuperUniques(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "super
 		const val U_TRANS_NIGHTMARE = "Utrans(N)"
 		const val U_TRANS_HELL = "Utrans(H)"
 		const val TC = "TC"
+		const val TC_DESECRATED = "TC Desecrated"
 		const val TC_NIGHTMARE = "TC(N)"
+		const val TC_NIGHTMARE_DESECRATED = "TC(N) Desecrated"
 		const val TC_HELL = "TC(H)"
+		const val TC_HELL_DESECRATED = "TC(H) Desecrated"
 		const val EOL = "*eol"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

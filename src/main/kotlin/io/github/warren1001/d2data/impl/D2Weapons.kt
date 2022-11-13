@@ -350,8 +350,6 @@ class D2Weapons(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "weapons")
 		
 	}
 	
-	init {
-		verify(HEADERS)
-	}
+	override fun getTrueHeaders() = HEADERS
 	
 }

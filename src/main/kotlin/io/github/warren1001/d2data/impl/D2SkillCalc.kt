@@ -15,6 +15,6 @@ class D2SkillCalc(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "skillcal
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

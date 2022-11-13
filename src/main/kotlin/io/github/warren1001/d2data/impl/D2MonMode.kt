@@ -16,6 +16,6 @@ class D2MonMode(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monmode") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

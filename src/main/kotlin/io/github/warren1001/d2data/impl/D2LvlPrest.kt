@@ -36,6 +36,6 @@ class D2LvlPrest(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "lvlprest"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

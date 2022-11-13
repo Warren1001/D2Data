@@ -49,6 +49,6 @@ class D2ItemTypes(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "itemtype
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

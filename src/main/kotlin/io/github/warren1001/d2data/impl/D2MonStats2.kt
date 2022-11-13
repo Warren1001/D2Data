@@ -268,8 +268,6 @@ class D2MonStats2(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "monstat
 		
 	}
 	
-	init {
-		verify(HEADERS)
-	}
+	override fun getTrueHeaders() = HEADERS
 	
 }

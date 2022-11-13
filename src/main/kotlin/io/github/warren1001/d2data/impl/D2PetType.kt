@@ -33,6 +33,6 @@ class D2PetType(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "pettype") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

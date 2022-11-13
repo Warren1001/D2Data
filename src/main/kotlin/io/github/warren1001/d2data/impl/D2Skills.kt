@@ -70,6 +70,7 @@ class D2Skills(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "skills") {
 			"passivecalc5",
 			"passivestat6",
 			"passivecalc6",
+			"passivestat7", "passivecalc7", "passivestat8", "passivecalc8", "passivestat9", "passivecalc9", "passivestat10", "passivecalc10",
 			"summon",
 			"pettype",
 			"petmax",
@@ -348,6 +349,14 @@ class D2Skills(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "skills") {
 		const val PASSIVE_CALC_5 = "passivecalc5"
 		const val PASSIVE_STAT_6 = "passivestat6"
 		const val PASSIVE_CALC_6 = "passivecalc6"
+		const val PASSIVE_STAT_7 = "passivestat7"
+		const val PASSIVE_CALC_7 = "passivecalc7"
+		const val PASSIVE_STAT_8 = "passivestat8"
+		const val PASSIVE_CALC_8 = "passivecalc8"
+		const val PASSIVE_STAT_9 = "passivestat9"
+		const val PASSIVE_CALC_9 = "passivecalc9"
+		const val PASSIVE_STAT_10 = "passivestat10"
+		const val PASSIVE_CALC_10 = "passivecalc10"
 		const val SUMMON = "summon"
 		const val PET_TYPE = "pettype"
 		const val PET_MAX = "petmax"
@@ -566,8 +575,6 @@ class D2Skills(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "skills") {
 		
 	}
 	
-	init {
-		verify(HEADERS)
-	}
+	override fun getTrueHeaders() = HEADERS
 	
 }

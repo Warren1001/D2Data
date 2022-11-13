@@ -346,8 +346,6 @@ class D2Armor(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "armor") {
 		
 	}
 	
-	init {
-		verify(HEADERS)
-	}
+	override fun getTrueHeaders() = HEADERS
 	
 }

@@ -15,6 +15,6 @@ class D2CubeMod(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "cubemod") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

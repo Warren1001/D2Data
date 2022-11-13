@@ -26,6 +26,6 @@ class D2RarePrefix(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "rarepre
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

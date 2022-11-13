@@ -23,6 +23,6 @@ class D2MonAI(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monai") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

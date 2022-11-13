@@ -14,6 +14,6 @@ class D2UniqueAppellation(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

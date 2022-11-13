@@ -162,8 +162,6 @@ class D2Belts(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "belts") {
 		
 	}
 	
-	init {
-		verify(HEADERS)
-	}
+	override fun getTrueHeaders() = HEADERS
 	
 }

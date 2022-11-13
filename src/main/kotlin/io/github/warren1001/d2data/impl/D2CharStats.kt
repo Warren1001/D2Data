@@ -96,6 +96,6 @@ class D2CharStats(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "charstat
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

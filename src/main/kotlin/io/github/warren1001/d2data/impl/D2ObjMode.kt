@@ -15,6 +15,6 @@ class D2ObjMode(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "objmode") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

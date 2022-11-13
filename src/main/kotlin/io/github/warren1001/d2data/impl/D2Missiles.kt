@@ -182,6 +182,6 @@ class D2Missiles(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "missiles"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

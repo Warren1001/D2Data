@@ -15,6 +15,6 @@ class D2Colors(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "colors") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

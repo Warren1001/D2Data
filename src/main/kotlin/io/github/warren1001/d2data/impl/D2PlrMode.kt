@@ -16,6 +16,6 @@ class D2PlrMode(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "plrmode") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

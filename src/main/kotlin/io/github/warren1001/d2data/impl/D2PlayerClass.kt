@@ -15,6 +15,6 @@ class D2PlayerClass(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "player
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

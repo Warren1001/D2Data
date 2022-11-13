@@ -14,6 +14,6 @@ class D2LowQualityItems(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "lo
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

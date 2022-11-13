@@ -15,6 +15,6 @@ class D2CompCode(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "compcode"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

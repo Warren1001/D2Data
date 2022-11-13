@@ -160,6 +160,6 @@ class D2Objects(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "objects") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

@@ -22,6 +22,6 @@ class D2Books(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "books") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

@@ -31,6 +31,6 @@ class D2MonUMod(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monumod") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

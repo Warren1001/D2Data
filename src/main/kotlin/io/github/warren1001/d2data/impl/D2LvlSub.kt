@@ -35,6 +35,6 @@ class D2LvlSub(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "lvlsub") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

@@ -31,6 +31,6 @@ class D2QualityItems(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "quali
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

@@ -107,6 +107,7 @@ class D2MonStats(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "monstats
 			"deathDmg",
 			"genericSpawn",
 			"zoo",
+			"CannotDesecrate",
 			"rightArmItemType",
 			"leftArmItemType",
 			"canNotUseTwoHandedItems",
@@ -162,7 +163,7 @@ class D2MonStats(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "monstats
 			"DamageRegen",
 			"SkillDamage",
 			"noRatio",
-			"NoShldBlock",
+			"ShieldBlockOverride",
 			"ToBlock",
 			"ToBlock(N)",
 			"ToBlock(H)",
@@ -248,18 +249,10 @@ class D2MonStats(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "monstats
 			"El3MinD(H)",
 			"El3MaxD(H)",
 			"El3Dur(H)",
-			"TreasureClass1",
-			"TreasureClass2",
-			"TreasureClass3",
-			"TreasureClass4",
-			"TreasureClass1(N)",
-			"TreasureClass2(N)",
-			"TreasureClass3(N)",
-			"TreasureClass4(N)",
-			"TreasureClass1(H)",
-			"TreasureClass2(H)",
-			"TreasureClass3(H)",
-			"TreasureClass4(H)",
+			"TreasureClass", "TreasureClassChamp", "TreasureClassUnique", "TreasureClassQuest", "TreasureClassDesecrated", "TreasureClassDesecratedChamp", "TreasureClassDesecratedUnique",
+			"TreasureClass(N)", "TreasureClassChamp(N)", "TreasureClassUnique(N)", "TreasureClassQuest(N)", "TreasureClassDesecrated(N)", "TreasureClassDesecratedChamp(N)",
+			"TreasureClassDesecratedUnique(N)", "TreasureClass(H)", "TreasureClassChamp(H)", "TreasureClassUnique(H)", "TreasureClassQuest(H)", "TreasureClassDesecrated(H)",
+			"TreasureClassDesecratedChamp(H)", "TreasureClassDesecratedUnique(H)",
 			"TCQuestId",
 			"TCQuestCP",
 			"SplEndDeath",
@@ -367,6 +360,7 @@ class D2MonStats(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "monstats
 		const val DEATH_DMG = "deathDmg"
 		const val GENERIC_SPAWN = "genericSpawn"
 		const val ZOO = "zoo"
+		const val CANNOT_DESECRATE = "CannotDesecrate"
 		const val RIGHT_ARM_ITEM_TYPE = "rightArmItemType"
 		const val LEFT_ARM_ITEM_TYPE = "leftArmItemType"
 		const val CAN_NOT_USE_TWO_HANDED_ITEMS = "canNotUseTwoHandedItems"
@@ -422,7 +416,7 @@ class D2MonStats(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "monstats
 		const val DAMAGE_REGEN = "DamageRegen"
 		const val SKILL_DAMAGE = "SkillDamage"
 		const val NO_RATIO = "noRatio"
-		const val NO_SHLD_BLOCK = "NoShldBlock"
+		const val SHIELD_BLOCK_OVERRIDE = "ShieldBlockOverride"
 		const val TO_BLOCK = "ToBlock"
 		const val TO_BLOCK_NIGHTMARE = "ToBlock(N)"
 		const val TO_BLOCK_HELL = "ToBlock(H)"
@@ -508,18 +502,27 @@ class D2MonStats(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "monstats
 		const val EL3_MIN_D_HELL = "El3MinD(H)"
 		const val EL3_MAX_D_HELL = "El3MaxD(H)"
 		const val EL3_DUR_HELL = "El3Dur(H)"
-		const val TREASURE_CLASS_1 = "TreasureClass1"
-		const val TREASURE_CLASS_2 = "TreasureClass2"
-		const val TREASURE_CLASS_3 = "TreasureClass3"
-		const val TREASURE_CLASS_4 = "TreasureClass4"
-		const val TREASURE_CLASS_1_NIGHTMARE = "TreasureClass1(N)"
-		const val TREASURE_CLASS_2_NIGHTMARE = "TreasureClass2(N)"
-		const val TREASURE_CLASS_3_NIGHTMARE = "TreasureClass3(N)"
-		const val TREASURE_CLASS_4_NIGHTMARE = "TreasureClass4(N)"
-		const val TREASURE_CLASS_1_HELL = "TreasureClass1(H)"
-		const val TREASURE_CLASS_2_HELL = "TreasureClass2(H)"
-		const val TREASURE_CLASS_3_HELL = "TreasureClass3(H)"
-		const val TREASURE_CLASS_4_HELL = "TreasureClass4(H)"
+		const val TREASURE_CLASS = "TreasureClass"
+		const val TREASURE_CLASS_CHAMP = "TreasureClassChamp"
+		const val TREASURE_CLASS_UNIQUE = "TreasureClassUnique"
+		const val TREASURE_CLASS_QUEST = "TreasureClassQuest"
+		const val TREASURE_CLASS_DESECRATED = "TreasureClassDesecrated"
+		const val TREASURE_CLASS_DESECRATED_CHAMP = "TreasureClassDesecratedChamp"
+		const val TREASURE_CLASS_DESECRATED_UNIQUE = "TreasureClassDesecratedUnique"
+		const val TREASURE_CLASS_NIGHTMARE = "TreasureClass(N)"
+		const val TREASURE_CLASS_CHAMP_NIGHTMARE = "TreasureClassChamp(N)"
+		const val TREASURE_CLASS_UNIQUE_NIGHTMARE = "TreasureClassUnique(N)"
+		const val TREASURE_CLASS_QUEST_NIGHTMARE = "TreasureClassQuest(N)"
+		const val TREASURE_CLASS_DESECRATED_NIGHTMARE = "TreasureClassDesecrated(N)"
+		const val TREASURE_CLASS_DESECRATED_CHAMP_NIGHTMARE = "TreasureClassDesecratedChamp(N)"
+		const val TREASURE_CLASS_DESECRATED_UNIQUE_NIGHTMARE = "TreasureClassDesecratedUnique(N)"
+		const val TREASURE_CLASS_HELL = "TreasureClass(H)"
+		const val TREASURE_CLASS_CHAMP_HELL = "TreasureClassChamp(H)"
+		const val TREASURE_CLASS_UNIQUE_HELL = "TreasureClassUnique(H)"
+		const val TREASURE_CLASS_QUEST_HELL = "TreasureClassQuest(H)"
+		const val TREASURE_CLASS_DESECRATED_HELL = "TreasureClassDesecrated(H)"
+		const val TREASURE_CLASS_DESECRATED_CHAMP_HELL = "TreasureClassDesecratedChamp(H)"
+		const val TREASURE_CLASS_DESECRATED_UNIQUE_HELL = "TreasureClassDesecratedUnique(H)"
 		const val TC_QUEST_ID = "TCQuestId"
 		const val TC_QUEST_CP = "TCQuestCP"
 		const val SPL_END_DEATH = "SplEndDeath"
@@ -530,8 +533,6 @@ class D2MonStats(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "monstats
 		
 	}
 	
-	init {
-		verify(HEADERS)
-	}
+	override fun getTrueHeaders() = HEADERS
 	
 }

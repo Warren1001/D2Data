@@ -86,6 +86,6 @@ class D2Inventory(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "inventor
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

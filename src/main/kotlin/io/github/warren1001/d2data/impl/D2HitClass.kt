@@ -15,6 +15,6 @@ class D2HitClass(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "hitclass"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

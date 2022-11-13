@@ -56,6 +56,6 @@ class D2ActInfo(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "actinfo") 
 		
 	}
 	
-	init { verify(HEADERS) }
-
+	override fun getTrueHeaders() = HEADERS
+	
 }

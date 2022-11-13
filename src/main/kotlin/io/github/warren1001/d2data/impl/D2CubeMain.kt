@@ -118,6 +118,6 @@ class D2CubeMain(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "cubemain"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

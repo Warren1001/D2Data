@@ -52,7 +52,7 @@ class D2MagicPrefix(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "magicp
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 	/*fun getFormattedList(): Map<String, String> {
 		val map = mutableMapOf<String, String>()

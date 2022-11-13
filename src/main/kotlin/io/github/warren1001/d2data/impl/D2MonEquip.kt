@@ -26,6 +26,6 @@ class D2MonEquip(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monequip"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

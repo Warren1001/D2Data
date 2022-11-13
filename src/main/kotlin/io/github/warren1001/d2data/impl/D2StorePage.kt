@@ -15,6 +15,6 @@ class D2StorePage(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "storepag
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

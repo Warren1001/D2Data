@@ -37,6 +37,6 @@ class D2Overlay(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "overlay") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

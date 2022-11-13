@@ -15,6 +15,6 @@ class D2Composit(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "composit"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

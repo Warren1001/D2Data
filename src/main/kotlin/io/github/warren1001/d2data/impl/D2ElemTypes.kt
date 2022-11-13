@@ -15,6 +15,6 @@ class D2ElemTypes(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "elemtype
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

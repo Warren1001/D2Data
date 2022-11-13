@@ -8,7 +8,9 @@ class D2TreasureClassEx(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "tr
 	
 	companion object {
 		
-		private val HEADERS = listOf("Treasure Class", "group", "level", "Picks", "Unique", "Set", "Rare", "Magic", "NoDrop", "Item1", "Prob1", "Item2", "Prob2", "Item3", "Prob3", "Item4", "Prob4", "Item5", "Prob5", "Item6", "Prob6", "Item7", "Prob7", "Item8", "Prob8", "Item9", "Prob9", "Item10", "Prob10", "*ItemProbSum", "*ItemProbTotal", "*TreasureClassDropChance", "*eol")
+		private val HEADERS = listOf("Treasure Class", "group", "level", "Picks", "Unique", "Set", "Rare", "Magic", "NoDrop", "Item1", "Prob1", "Item2", "Prob2", "Item3", "Prob3", "Item4", "Prob4",
+			"Item5", "Prob5", "Item6", "Prob6", "Item7", "Prob7", "Item8", "Prob8", "Item9", "Prob9", "Item10", "Prob10", "*ItemProbSum", "*ItemProbTotal", "*TreasureClassDropChance", "ladder",
+			"noAlwaysSpawn", "*eol")
 		
 		const val TREASURE_CLASS = "Treasure Class"
 		const val GROUP = "group"
@@ -42,10 +44,12 @@ class D2TreasureClassEx(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "tr
 		const val ITEM_PROB_SUM = "*ItemProbSum"
 		const val ITEM_PROB_TOTAL = "*ItemProbTotal"
 		const val TREASURE_CLASS_DROP_CHANCE = "*TreasureClassDropChance"
+		const val LADDER = "ladder"
+		const val NO_ALWAYS_SPAWN = "noAlwaysSpawn"
 		const val EOL = "*eol"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

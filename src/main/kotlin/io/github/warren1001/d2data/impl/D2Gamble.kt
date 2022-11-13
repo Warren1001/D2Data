@@ -15,6 +15,6 @@ class D2Gamble(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "gamble") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

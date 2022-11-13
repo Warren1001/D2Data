@@ -1,9 +1,6 @@
 package io.github.warren1001.d2data
 
-import io.github.warren1001.d2data.impl.D2Hireling
-import io.github.warren1001.d2data.impl.D2Levels
-import io.github.warren1001.d2data.impl.D2MonLvl
-import io.github.warren1001.d2data.impl.D2MonStats
+import io.github.warren1001.d2data.impl.*
 import java.io.File
 
 val DIRECTORY = File("current")
@@ -19,9 +16,17 @@ fun main() {
 	//compareDifferences(D2Sheet(MANAGER, File("before.txt")), D2Sheet(MANAGER, File("after.txt")))
 	//printHirelingData()
 	
-	//compareDifferences()
+	verify()
+	
+	println("----")
+	
+	//compareTC()
+	compareDifferences()
+	//compareMonstats()
 	
 	//printExperienceInfo()
+	//countPrefixesForGCS()
+	//countSuffixesForGCS()
 	//printDefenseInfo()
 	//printMonInfoForMacro()
 	
@@ -85,8 +90,68 @@ fun main() {
 	}
 }*/
 
+fun compareMonstats() {
+	val newManager = D2Sheets(File("new"))
+	//newManager.verify()
+	MANAGER.MON_STATS.compare(newManager.MON_STATS)
+}
+
+fun compareTC() {
+	val newManager = D2Sheets(File("new"))
+	//newManager.verify()
+	MANAGER.TREASURE_CLASS_EX.compare(newManager.TREASURE_CLASS_EX)
+}
+
 fun swapImmunityToSorb() {
 	val monStats = D2MonStats(MANAGER, DIRECTORY)
+}
+
+fun countPrefixesForGCS() {
+	MANAGER.MAGIC_PREFIX
+	val magicPrefixes = MANAGER.MAGIC_PREFIX
+	var count = 0
+	magicPrefixes.forEach { index ->
+		val name = magicPrefixes.getValue(index, D2MagicPrefix.NAME)
+		val version = magicPrefixes.getValue(index, D2MagicPrefix.VERSION)
+		val spawnable = magicPrefixes.getValue(index, D2MagicPrefix.SPAWNABLE)
+		val itype1 = magicPrefixes.getValue(index, D2MagicPrefix.ITYPE_1)
+		val itype2 = magicPrefixes.getValue(index, D2MagicPrefix.ITYPE_2)
+		val itype3 = magicPrefixes.getValue(index, D2MagicPrefix.ITYPE_3)
+		val itype4 = magicPrefixes.getValue(index, D2MagicPrefix.ITYPE_4)
+		val itype5 = magicPrefixes.getValue(index, D2MagicPrefix.ITYPE_5)
+		val itype6 = magicPrefixes.getValue(index, D2MagicPrefix.ITYPE_6)
+		val itype7 = magicPrefixes.getValue(index, D2MagicPrefix.ITYPE_7)
+		/*println("name: $name, version: $version (${version == "100"}), spawnable: $spawnable (${spawnable == "1"}), itype1: $itype1 (${itype1 == "lcha"}), itype2: $itype2, itype3: $itype3," +
+				"itype4: $itype4, itype5: $itype5, itype6: $itype6, itype7: $itype7")*/
+		if (spawnable == "1" && version == "100" && (itype1 == "lcha" || itype2 == "lcha" || itype3 == "lcha" || itype4 == "lcha" || itype5 == "lcha" || itype6 == "lcha" || itype7 == "lcha")) {
+			count++
+		}
+	}
+	println(count)
+}
+
+fun countSuffixesForGCS() {
+	MANAGER.MAGIC_PREFIX
+	val magicSuffixes = MANAGER.MAGIC_SUFFIX
+	var count = 0
+	magicSuffixes.forEach { index ->
+		val name = magicSuffixes.getValue(index, D2MagicSuffix.NAME)
+		val version = magicSuffixes.getValue(index, D2MagicSuffix.VERSION)
+		val spawnable = magicSuffixes.getValue(index, D2MagicSuffix.SPAWNABLE)
+		val itype1 = magicSuffixes.getValue(index, D2MagicSuffix.ITYPE_1)
+		val itype2 = magicSuffixes.getValue(index, D2MagicSuffix.ITYPE_2)
+		val itype3 = magicSuffixes.getValue(index, D2MagicSuffix.ITYPE_3)
+		val itype4 = magicSuffixes.getValue(index, D2MagicSuffix.ITYPE_4)
+		val itype5 = magicSuffixes.getValue(index, D2MagicSuffix.ITYPE_5)
+		val itype6 = magicSuffixes.getValue(index, D2MagicSuffix.ITYPE_6)
+		val itype7 = magicSuffixes.getValue(index, D2MagicSuffix.ITYPE_7)
+		/*println("name: $name, version: $version (${version == "100"}), spawnable: $spawnable (${spawnable == "1"}), itype1: $itype1 (${itype1 == "lcha"}), itype2: $itype2, itype3: $itype3," +
+				"itype4: $itype4, itype5: $itype5, itype6: $itype6, itype7: $itype7")*/
+		if (spawnable == "1" && version == "100" && (itype1 == "lcha" || itype2 == "lcha" || itype3 == "lcha" || itype4 == "lcha" || itype5 == "lcha" || itype6 == "lcha" || itype7 == "lcha")) {
+			count++
+		}
+	}
+	println(count)
 }
 
 fun printMonInfoForMacro() {
@@ -96,7 +161,7 @@ fun printMonInfoForMacro() {
 		"Burial Grounds", "Crypt", "Mausoleum",
 		"Stony Field", // unlisted
 		"Dark Wood",
-		"Black Marsh", "Tower Cellar Level 1", "Tower Cellar Level 2", "Tower Cellar Level 3", "Tower Cellar Level 4", "Tower Cellar Level 5",
+		"Tower Cellar Level 1", "Tower Cellar Level 2", "Tower Cellar Level 3", "Tower Cellar Level 4", "Tower Cellar Level 5",
 		"Jail Level 1", "Jail Level 2", "Jail Level 3",
 		"Cathedral", "Catacombs Level 1", "Catacombs Level 2", "Catacombs Level 3", "Catacombs Level 4",
 		"Tristram", "Moo Moo Farm",
@@ -212,24 +277,24 @@ fun printExperienceInfo() {
 		"Stony Field", // unlisted
 		"Dark Wood",
 		"Black Marsh", "Tower Cellar Level 1", "Tower Cellar Level 2", "Tower Cellar Level 3", "Tower Cellar Level 4", "Tower Cellar Level 5",
+		"Pit Level 1", "Pit Level 2",
 		"Jail Level 1", "Jail Level 2", "Jail Level 3",
 		"Cathedral", "Catacombs Level 1", "Catacombs Level 2", "Catacombs Level 3", "Catacombs Level 4",
 		"Tristram", "Moo Moo Farm",
 		"Sewers Level 1", "Sewers Level 2", "Sewers Level 3",
 		"Rocky Waste", "Stony Tomb Level 1", "Stony Tomb Level 2",
 		"Dry Hills", "Halls of the Dead Level 1", "Halls of the Dead Level 2", "Halls of the Dead Level 3",
-		"Far Oasis", "Maggot Lair Level 1", "Maggot Lair Level 2", "Maggot Lair Level 3",
+		"Far Oasis",
 		"Lost City", "Valley of Snakes", "Claw Viper Temple Level 1", "Claw Viper Temple Level 2",
-		"Harem Level 1", "Harem Level 2", "Palace Cellar Level 1", "Palace Cellar Level 2", "Palace Cellar Level 3", "Arcane Sanctuary",
+		"Arcane Sanctuary",
 		"Tal Rasha's Tomb",
 		"Spider Forest", "Spider Cavern",
 		"Flayer Jungle", "Flayer Dungeon",
-		"Lower Kurast",
 		"Kurast Bazaar", "Disused Fane", "Ruined Temple",
 		// Sewers Level 1 and 2 are already in the list from act 2
 		"Travincal",
 		"Durance of Hate Level 1", "Durance of Hate Level 2", "Durance of Hate Level 3",
-		"Outer Steppes", "Plains of Despair", "River of Flame", "Chaos Sanctuary",
+		"Outer Steppes", "Plains of Despair", "City of the Damned", "River of Flame", "The Chaos Sanctuary",
 		"Bloody Foothills", "Frigid Highlands", "Arreat Plateau",
 		"Crystalline Passage", "Frozen River", "Glacial Trail", "The Ancients' Way", "Icy Cellar",
 		"Nihlathak's Temple", "Halls of Anguish", "Halls of Pain", "Halls of Vaught",
@@ -362,7 +427,7 @@ fun printHirelingData() {
 	}
 }
 
-fun printNewColumns(old: D2Sheet, new: D2Sheet) {
+/*fun printNewColumns(old: D2Sheet, new: D2Sheet) {
 	for (v in new.getHeaders()) {
 		if (!old.getHeaders().contains(v)) {
 			println("\tNew Header in ${new.name}: $v")
@@ -401,16 +466,16 @@ fun printDeletedRows(old: D2Sheet, new: D2Sheet) {
 			}
 		}
 	}
+}*/
+
+fun verify() {
+	MANAGER.verify()
 }
 
 fun compareDifferences() {
-	
-	File("current").listFiles { _, name -> name.endsWith(".txt") }!!.forEach { file ->
-		val name = file.nameWithoutExtension
-		val original = D2Sheet(MANAGER, file)
-		val new = D2Sheet(MANAGER, File("new"), name)
-		compareDifferences(original, new)
-	}
+	val newManager = D2Sheets(File("new"))
+	//newManager.verify()
+	MANAGER.compareToNew(newManager)
 }
 
 fun compareFuryDiff(old: D2Sheet, new: D2Sheet) {
@@ -423,7 +488,7 @@ fun compareFuryDiff(old: D2Sheet, new: D2Sheet) {
 	}
 }
 
-fun compareDifferences(old: D2Sheet, new: D2Sheet) {
+/**fun compareDifferences(old: D2Sheet, new: D2Sheet) {
 	val name = old.name
 	var printName = false
 	printNewColumns(old, new)
@@ -464,4 +529,4 @@ fun compareDifferences(old: D2Sheet, new: D2Sheet) {
 		}
 	}
 	if (printName) println()
-}
+}*/

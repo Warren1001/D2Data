@@ -63,6 +63,6 @@ class D2Runes(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "runes") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

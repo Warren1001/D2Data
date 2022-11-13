@@ -49,6 +49,6 @@ class D2Properties(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "propert
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

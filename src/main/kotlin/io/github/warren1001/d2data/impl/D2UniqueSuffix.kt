@@ -14,6 +14,6 @@ class D2UniqueSuffix(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "uniqu
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

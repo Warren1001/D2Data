@@ -26,6 +26,6 @@ class D2RareSuffix(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "raresuf
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

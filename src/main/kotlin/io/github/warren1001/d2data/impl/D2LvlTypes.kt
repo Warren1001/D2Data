@@ -48,6 +48,6 @@ class D2LvlTypes(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "lvltypes"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

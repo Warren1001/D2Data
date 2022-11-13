@@ -8,7 +8,10 @@ class D2SoundEnviron(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "sound
 	
 	companion object {
 		
-		private val HEADERS = listOf("Handle", "Index", "Song", "Day Ambience", "HD Day Ambience", "Night Ambience", "HD Night Ambience", "Day Event", "HD Day Event", "Night Event", "HD Night Event", "Event Delay", "HD Event Delay", "Indoors", "Material 1", "HD Material 1", "Material 2", "HD Material 2", "SFX EAX Environ", "SFX EAX Room Vol", "SFX EAX Room HF", "SFX EAX Decay Time", "SFX EAX Decay HF", "SFX EAX Reflect", "SFX EAX Reflect Delay", "SFX EAX Reverb", "SFX EAX Rev Delay", "VOX EAX Environ", "VOX EAX Room Vol", "VOX EAX Room HF", "VOX EAX Decay Time", "VOX EAX Decay HF", "VOX EAX Reflect", "VOX EAX Reflect Delay", "VOX EAX Reverb", "VOX EAX Rev Delay")
+		private val HEADERS = listOf("Handle", "Index", "Song", "Day Ambience", "HD Day Ambience", "Night Ambience", "HD Night Ambience", "Day Event", "HD Day Event", "Night Event", "HD Night " +
+				"Event", "Event Delay", "HD Event Delay", "Indoors", "Material 1", "HD Material 1", "Material 2", "HD Material 2", "SFX EAX Environ", "SFX EAX Room Vol", "SFX EAX Room HF", "SFX EAX" +
+				" Decay Time", "SFX EAX Decay HF", "SFX EAX Reflect", "SFX EAX Reflect Delay", "SFX EAX Reverb", "SFX EAX Rev Delay", "VOX EAX Environ", "VOX EAX Room Vol", "VOX EAX Room HF", "VOX " +
+				"EAX Decay Time", "VOX EAX Decay HF", "VOX EAX Reflect", "VOX EAX Reflect Delay", "VOX EAX Reverb", "VOX EAX Rev Delay", "InheritEnvrionment")
 		
 		const val HANDLE = "Handle"
 		const val INDEX = "Index"
@@ -46,9 +49,10 @@ class D2SoundEnviron(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "sound
 		const val VOX_EAX_REFLECT_DELAY = "VOX EAX Reflect Delay"
 		const val VOX_EAX_REVERB = "VOX EAX Reverb"
 		const val VOX_EAX_REV_DELAY = "VOX EAX Rev Delay"
+		const val INHERIT_ENVIRONMENT = "InheritEnvrionment" // blizzard typo'd the header
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

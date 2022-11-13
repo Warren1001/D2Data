@@ -39,6 +39,6 @@ class D2ObjGroup(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "objgroup"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

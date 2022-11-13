@@ -52,6 +52,6 @@ class D2MagicSuffix(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "magics
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

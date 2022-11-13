@@ -65,6 +65,6 @@ class D2ItemStatCost(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "items
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

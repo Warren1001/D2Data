@@ -250,6 +250,6 @@ class D2SkillDesc(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "skillde
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

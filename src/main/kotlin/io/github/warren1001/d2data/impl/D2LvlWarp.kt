@@ -28,6 +28,6 @@ class D2LvlWarp(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "lvlwarp") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

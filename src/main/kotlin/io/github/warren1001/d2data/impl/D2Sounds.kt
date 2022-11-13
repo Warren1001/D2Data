@@ -51,6 +51,6 @@ class D2Sounds(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "sounds") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

@@ -18,6 +18,6 @@ class D2ObjPreset(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "objprese
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

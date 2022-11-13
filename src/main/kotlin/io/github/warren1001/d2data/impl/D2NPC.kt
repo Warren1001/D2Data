@@ -32,6 +32,6 @@ class D2NPC(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "npc") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

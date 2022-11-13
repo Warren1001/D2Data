@@ -53,6 +53,6 @@ class D2Gems(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "gems") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

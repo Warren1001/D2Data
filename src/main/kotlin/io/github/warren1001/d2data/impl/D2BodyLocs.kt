@@ -15,6 +15,6 @@ class D2BodyLocs(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "bodylocs"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

@@ -26,6 +26,6 @@ class D2AutoMap(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "automap") 
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

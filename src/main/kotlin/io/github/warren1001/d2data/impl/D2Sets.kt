@@ -81,6 +81,6 @@ class D2Sets(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "sets") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

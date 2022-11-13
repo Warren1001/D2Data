@@ -8,7 +8,11 @@ class D2States(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "states") {
 	
 	companion object {
 		
-		private val HEADERS = listOf("state", "*ID", "group", "remhit", "nosend", "transform", "aura", "curable", "curse", "active", "restrict", "disguise", "attblue", "damblue", "armblue", "rfblue", "rlblue", "rcblue", "stambarblue", "rpblue", "attred", "damred", "armred", "rfred", "rlred", "rcred", "rpred", "exp", "plrstaydeath", "monstaydeath", "bossstaydeath", "hide", "hidedead", "shatter", "udead", "life", "green", "pgsv", "nooverlays", "noclear", "bossinv", "meleeonly", "notondead", "overlay1", "overlay2", "overlay3", "overlay4", "pgsvoverlay", "castoverlay", "removerlay", "stat", "setfunc", "remfunc", "missile", "skill", "itemtype", "itemtrans", "colorpri", "colorshift", "light-r", "light-g", "light-b", "onsound", "offsound", "gfxtype", "gfxclass", "cltevent", "clteventfunc", "cltactivefunc", "srvactivefunc", "canstack", "*eol")
+		private val HEADERS = listOf("state", "*ID", "group", "remhit", "nosend", "transform", "aura", "curable", "curse", "active", "restrict", "disguise", "attblue", "damblue", "armblue", "rfblue",
+			"rlblue", "rcblue", "stambarblue", "rpblue", "attred", "damred", "armred", "rfred", "rlred", "rcred", "rpred", "exp", "plrstaydeath", "monstaydeath", "bossstaydeath", "hide", "hidedead",
+			"shatter", "udead", "life", "green", "pgsv", "nooverlays", "noclear", "bossinv", "meleeonly", "notondead", "overlay1", "overlay2", "overlay3", "overlay4", "pgsvoverlay", "castoverlay",
+			"removerlay", "stat", "setfunc", "remfunc", "missile", "skill", "itemtype", "itemtrans", "colorpri", "colorshift", "light-r", "light-g", "light-b", "onsound", "offsound", "gfxtype",
+			"gfxclass", "cltevent", "clteventfunc", "cltactivefunc", "srvactivefunc", "canstack", "sunderfull", "*eol")
 		
 		const val STATE = "state"
 		const val ID = "*ID"
@@ -81,10 +85,11 @@ class D2States(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "states") {
 		const val CLT_ACTIVE_FUNC = "cltactivefunc"
 		const val SRV_ACTIVE_FUNC = "srvactivefunc"
 		const val CAN_STACK = "canstack"
+		const val SUNDER_FULL = "sunderfull"
 		const val EOL = "*eol"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

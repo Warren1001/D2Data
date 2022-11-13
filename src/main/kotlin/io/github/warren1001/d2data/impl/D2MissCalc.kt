@@ -15,6 +15,6 @@ class D2MissCalc(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "misscalc"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

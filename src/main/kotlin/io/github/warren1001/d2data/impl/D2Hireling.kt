@@ -168,8 +168,6 @@ class D2Hireling(manager: D2Sheets, dir: File) : D2Sheet(manager, dir, "hireling
 		
 	}
 	
-	init {
-		verify(HEADERS)
-	}
+	override fun getTrueHeaders() = HEADERS
 	
 }

@@ -52,6 +52,6 @@ class D2AutoMagic(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "automagi
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

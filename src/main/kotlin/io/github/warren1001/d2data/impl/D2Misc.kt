@@ -348,6 +348,6 @@ class D2Misc(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "misc") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

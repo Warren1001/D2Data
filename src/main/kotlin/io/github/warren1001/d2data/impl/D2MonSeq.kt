@@ -19,6 +19,6 @@ class D2MonSeq(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monseq") {
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }

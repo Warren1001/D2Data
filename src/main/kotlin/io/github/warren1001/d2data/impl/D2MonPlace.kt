@@ -14,6 +14,6 @@ class D2MonPlace(manager: D2Sheets, dir: File): D2Sheet(manager, dir, "monplace"
 		
 	}
 	
-	init { verify(HEADERS) }
+	override fun getTrueHeaders() = HEADERS
 	
 }
