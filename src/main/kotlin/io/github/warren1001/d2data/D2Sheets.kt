@@ -1,125 +1,118 @@
 package io.github.warren1001.d2data
 
-import io.github.warren1001.d2data.impl.*
+import io.github.warren1001.d2data.enums.*
+import io.github.warren1001.d2data.utils.SetDifference
 import java.io.File
 
 
 class D2Sheets(private val dir: File) {
 	
-	val ARMOR = D2Armor(this, dir)
-	val ARM_TYPE = D2ArmType(this, dir)
-	val AUTO_MAGIC = D2AutoMagic(this, dir)
-	val AUTOMAP = D2AutoMap(this, dir)
-	val BELTS = D2Belts(this, dir)
-	val BODY_LOCS = D2BodyLocs(this, dir)
-	val BOOKS = D2Books(this, dir)
-	val CHAR_STATS = D2CharStats(this, dir)
-	val COLORS = D2Colors(this, dir)
-	val COMP_CODE = D2CompCode(this, dir)
-	val COMPOSIT = D2Composit(this, dir)
-	val CUBE_MAIN = D2CubeMain(this, dir)
-	val CUBE_MOD = D2CubeMod(this, dir)
-	val DIFFICULTY_LEVELS = D2DifficultyLevels(this, dir)
-	val ELEM_TYPES = D2ElemTypes(this, dir)
-	val EVENTS = D2Events(this, dir)
-	val EXPERIENCE = D2Experience(this, dir)
-	val GAMBLE = D2Gamble(this, dir)
-	val GEMS = D2Gems(this, dir)
-	val HIRELING = D2Hireling(this, dir)
-	val HIRELING_DESC = D2HirelingDesc(this, dir)
-	val HIT_CLASS = D2HitClass(this, dir)
-	val INVENTORY = D2Inventory(this, dir)
-	val ITEM_RATIO = D2ItemRatio(this, dir)
-	val ITEM_STAT_COST = D2ItemStatCost(this, dir)
-	val ITEM_TYPES = D2ItemTypes(this, dir)
-	val LEVEL_GROUPS = D2LevelGroups(this, dir)
-	val LEVELS = D2Levels(this, dir)
-	val LOW_QUALITY_ITEMS = D2LowQualityItems(this, dir)
-	val LVL_MAZE = D2LvlMaze(this, dir)
-	val LVL_PREST = D2LvlPrest(this, dir)
-	val LVL_SUB = D2LvlSub(this, dir)
-	val LVL_TYPES = D2LvlTypes(this, dir)
-	val LVL_WARP = D2LvlWarp(this, dir)
-	val MAGIC_PREFIX = D2MagicPrefix(this, dir)
-	val MAGIC_SUFFIX = D2MagicSuffix(this, dir)
-	val MISC = D2Misc(this, dir)
-	val MISS_CALC = D2MissCalc(this, dir)
-	val MISSILES = D2Missiles(this, dir)
-	val MON_AI = D2MonAI(this, dir)
-	val MON_EQUIP = D2MonEquip(this, dir)
-	val MON_LVL = D2MonLvl(this, dir)
-	val MON_MODE = D2MonMode(this, dir)
-	val MON_PLACE = D2MonPlace(this, dir)
-	val MON_PRESET = D2MonPreset(this, dir)
-	val MON_PROP = D2MonProp(this, dir)
-	val MON_SEQ = D2MonSeq(this, dir)
-	val MON_SOUNDS = D2MonSounds(this, dir)
-	val MON_STATS = D2MonStats(this, dir)
-	val MON_STATS2 = D2MonStats2(this, dir)
-	val MON_TYPE = D2MonType(this, dir)
-	val MON_U_MOD = D2MonUMod(this, dir)
-	val NPC = D2NPC(this, dir)
-	val OBJECTS = D2Objects(this, dir)
-	val OBJ_GROUP = D2ObjGroup(this, dir)
-	val OBJ_MODE = D2ObjMode(this, dir)
-	val OBJ_PRESET = D2ObjPreset(this, dir)
-	val OBJ_TYPE = D2ObjType(this, dir)
-	val OVERLAY = D2Overlay(this, dir)
-	val PET_TYPE = D2PetType(this, dir)
-	val PLAYER_CLASS = D2PlayerClass(this, dir)
-	val PLR_MODE = D2PlrMode(this, dir)
-	val PLR_TYPE = D2PlrType(this, dir)
-	val QUALITY_ITEMS = D2QualityItems(this, dir)
-	val RARE_PREFIX = D2RarePrefix(this, dir)
-	val RARE_SUFFIX = D2RareSuffix(this, dir)
-	val RUNES = D2Runes(this, dir)
-	val SET_ITEMS = D2SetItems(this, dir)
-	val SETS = D2Sets(this, dir)
-	val SHRINES = D2Shrines(this, dir)
-	val SKILL_CALC = D2SkillCalc(this, dir)
-	val SKILL_DESC = D2SkillDesc(this, dir)
-	val SKILLS = D2Skills(this, dir)
-	val SOUND_ENVIRON = D2SoundEnviron(this, dir)
-	val SOUNDS = D2Sounds(this, dir)
-	val STATES = D2States(this, dir)
-	val STORE_PAGE = D2StorePage(this, dir)
-	val SUPER_UNIQUES = D2SuperUniques(this, dir)
-	val TREASURE_CLASS_EX = D2TreasureClassEx(this, dir)
-	val UNIQUE_APPELLATION = D2UniqueAppellation(this, dir)
-	val UNIQUE_ITEMS = D2UniqueItems(this, dir)
-	val UNIQUE_PREFIX = D2UniquePrefix(this, dir)
-	val UNIQUE_SUFFIX = D2UniqueSuffix(this, dir)
-	val WANDERING_MON = D2WanderingMon(this, dir)
-	val WEAPONS = D2Weapons(this, dir)
+	private val sheets: MutableMap<String, D2Sheet> = mutableMapOf()
+	private val sheetHeaders: MutableMap<String, List<String>> = mutableMapOf()
 	
-	private val sheets = listOf(ARMOR, ARM_TYPE, AUTO_MAGIC, AUTOMAP, BELTS, BODY_LOCS, BOOKS, CHAR_STATS, COLORS, COMP_CODE, COMPOSIT, CUBE_MAIN, CUBE_MOD, DIFFICULTY_LEVELS, ELEM_TYPES, EVENTS,
-		EXPERIENCE, GAMBLE, GEMS, HIRELING, HIRELING_DESC, HIT_CLASS, INVENTORY, ITEM_RATIO, ITEM_STAT_COST, ITEM_TYPES, LEVEL_GROUPS, LEVELS, LOW_QUALITY_ITEMS, LVL_MAZE, LVL_PREST, LVL_SUB,
-		LVL_TYPES, LVL_WARP, MAGIC_PREFIX, MAGIC_SUFFIX, MISC, MISS_CALC, MISSILES, MON_AI, MON_EQUIP, MON_LVL, MON_MODE, MON_PLACE, MON_PRESET, MON_PROP, MON_SEQ, MON_SOUNDS, MON_STATS, MON_STATS2,
-		MON_TYPE, MON_U_MOD, NPC, OBJECTS, OBJ_GROUP, OBJ_MODE, OBJ_PRESET, OBJ_TYPE, OVERLAY, PET_TYPE, PLAYER_CLASS, PLR_MODE, PLR_TYPE, QUALITY_ITEMS, RARE_PREFIX, RARE_SUFFIX, RUNES, SET_ITEMS,
-		SETS, SHRINES, SKILL_CALC, SKILL_DESC, SKILLS, SOUND_ENVIRON, SOUNDS, STATES, STORE_PAGE, SUPER_UNIQUES, TREASURE_CLASS_EX, UNIQUE_APPELLATION, UNIQUE_ITEMS, UNIQUE_PREFIX, UNIQUE_SUFFIX,
-		WANDERING_MON, WEAPONS)
+	fun getSheet(name: String) = sheets[name.lowercase().substringBefore('.')]
+	
+	fun loadSheet(name: String) = sheets.computeIfAbsent(name.lowercase().substringBefore('.')) { D2Sheet(this, File(dir, "${name.substringBefore('.')}.txt"), sheetHeaders[it] ?: emptyList()) }
+	
+	fun loadAll() = dir.list { _, name -> name.endsWith(".txt") }?.forEach { loadSheet(it) }
 	
 	fun compareToNew(newSheets: D2Sheets) {
-		var i = 0
-		var o = 0
-		while (i < sheets.size) {
-			val curr = sheets[i]
-			val new = newSheets.sheets[o]
-			if (curr.name != new.name) {
-				println("New file: ${new.name}")
-			} else {
-				curr.compare(new)
-				i++
-			}
-			o++
-		}
-		for (i in o until newSheets.sheets.size) {
-			println("New file: ${newSheets.sheets[i].name}")
-		}
+		val difference = SetDifference(sheets.keys, newSheets.sheets.keys)
+		difference.secondOnly.forEach { println("New sheet: $it") }
+		difference.firstOnly.forEach { println("Missing sheet: $it") }
+		difference.shared.forEach { sheets[it]!!.compare(newSheets.sheets[it]!!) }
 	}
 	
-	fun verify() {
-		sheets.forEach { it.verify() }
+	fun verify() = sheets.all { it.value.verify() }
+	
+	init {
+		sheetHeaders[D2ActInfo.SHEET_NAME] = D2ActInfo.HEADERS
+		sheetHeaders[D2Armor.SHEET_NAME] = D2Armor.HEADERS
+		sheetHeaders[D2ArmType.SHEET_NAME] = D2ArmType.HEADERS
+		sheetHeaders[D2AutoMagic.SHEET_NAME] = D2AutoMagic.HEADERS
+		sheetHeaders[D2AutoMap.SHEET_NAME] = D2AutoMap.HEADERS
+		sheetHeaders[D2Belts.SHEET_NAME] = D2Belts.HEADERS
+		sheetHeaders[D2BodyLocs.SHEET_NAME] = D2BodyLocs.HEADERS
+		sheetHeaders[D2Books.SHEET_NAME] = D2Books.HEADERS
+		sheetHeaders[D2CharStats.SHEET_NAME] = D2CharStats.HEADERS
+		sheetHeaders[D2Colors.SHEET_NAME] = D2Colors.HEADERS
+		sheetHeaders[D2CompCode.SHEET_NAME] = D2CompCode.HEADERS
+		sheetHeaders[D2Composit.SHEET_NAME] = D2Composit.HEADERS
+		sheetHeaders[D2CubeMain.SHEET_NAME] = D2CubeMain.HEADERS
+		sheetHeaders[D2CubeMod.SHEET_NAME] = D2CubeMod.HEADERS
+		sheetHeaders[D2DifficultyLevels.SHEET_NAME] = D2DifficultyLevels.HEADERS
+		sheetHeaders[D2ElemTypes.SHEET_NAME] = D2ElemTypes.HEADERS
+		sheetHeaders[D2Events.SHEET_NAME] = D2Events.HEADERS
+		sheetHeaders[D2Experience.SHEET_NAME] = D2Experience.HEADERS
+		sheetHeaders[D2Gamble.SHEET_NAME] = D2Gamble.HEADERS
+		sheetHeaders[D2Gems.SHEET_NAME] = D2Gems.HEADERS
+		sheetHeaders[D2Hireling.SHEET_NAME] = D2Hireling.HEADERS
+		sheetHeaders[D2HirelingDesc.SHEET_NAME] = D2HirelingDesc.HEADERS
+		sheetHeaders[D2HitClass.SHEET_NAME] = D2HitClass.HEADERS
+		sheetHeaders[D2Inventory.SHEET_NAME] = D2Inventory.HEADERS
+		sheetHeaders[D2ItemRatio.SHEET_NAME] = D2ItemRatio.HEADERS
+		sheetHeaders[D2ItemStatCost.SHEET_NAME] = D2ItemStatCost.HEADERS
+		sheetHeaders[D2ItemTypes.SHEET_NAME] = D2ItemTypes.HEADERS
+		sheetHeaders[D2LevelGroups.SHEET_NAME] = D2LevelGroups.HEADERS
+		sheetHeaders[D2Levels.SHEET_NAME] = D2Levels.HEADERS
+		sheetHeaders[D2LowQualityItems.SHEET_NAME] = D2LowQualityItems.HEADERS
+		sheetHeaders[D2LvlMaze.SHEET_NAME] = D2LvlMaze.HEADERS
+		sheetHeaders[D2LvlPrest.SHEET_NAME] = D2LvlPrest.HEADERS
+		sheetHeaders[D2LvlSub.SHEET_NAME] = D2LvlSub.HEADERS
+		sheetHeaders[D2LvlTypes.SHEET_NAME] = D2LvlTypes.HEADERS
+		sheetHeaders[D2LvlWarp.SHEET_NAME] = D2LvlWarp.HEADERS
+		sheetHeaders[D2MagicPrefix.SHEET_NAME] = D2MagicPrefix.HEADERS
+		sheetHeaders[D2MagicSuffix.SHEET_NAME] = D2MagicSuffix.HEADERS
+		sheetHeaders[D2Misc.SHEET_NAME] = D2Misc.HEADERS
+		sheetHeaders[D2MissCalc.SHEET_NAME] = D2MissCalc.HEADERS
+		sheetHeaders[D2Missiles.SHEET_NAME] = D2Missiles.HEADERS
+		sheetHeaders[D2MonAI.SHEET_NAME] = D2MonAI.HEADERS
+		sheetHeaders[D2MonEquip.SHEET_NAME] = D2MonEquip.HEADERS
+		sheetHeaders[D2MonLvl.SHEET_NAME] = D2MonLvl.HEADERS
+		sheetHeaders[D2MonMode.SHEET_NAME] = D2MonMode.HEADERS
+		sheetHeaders[D2MonPlace.SHEET_NAME] = D2MonPlace.HEADERS
+		sheetHeaders[D2MonPreset.SHEET_NAME] = D2MonPreset.HEADERS
+		sheetHeaders[D2MonProp.SHEET_NAME] = D2MonProp.HEADERS
+		sheetHeaders[D2MonSeq.SHEET_NAME] = D2MonSeq.HEADERS
+		sheetHeaders[D2MonSounds.SHEET_NAME] = D2MonSounds.HEADERS
+		sheetHeaders[D2MonStats.SHEET_NAME] = D2MonStats.HEADERS
+		sheetHeaders[D2MonStats2.SHEET_NAME] = D2MonStats2.HEADERS
+		sheetHeaders[D2MonType.SHEET_NAME] = D2MonType.HEADERS
+		sheetHeaders[D2MonUMod.SHEET_NAME] = D2MonUMod.HEADERS
+		sheetHeaders[D2NPC.SHEET_NAME] = D2NPC.HEADERS
+		sheetHeaders[D2Objects.SHEET_NAME] = D2Objects.HEADERS
+		sheetHeaders[D2ObjGroup.SHEET_NAME] = D2ObjGroup.HEADERS
+		sheetHeaders[D2ObjMode.SHEET_NAME] = D2ObjMode.HEADERS
+		sheetHeaders[D2ObjPreset.SHEET_NAME] = D2ObjPreset.HEADERS
+		sheetHeaders[D2ObjType.SHEET_NAME] = D2ObjType.HEADERS
+		sheetHeaders[D2Overlay.SHEET_NAME] = D2Overlay.HEADERS
+		sheetHeaders[D2PetType.SHEET_NAME] = D2PetType.HEADERS
+		sheetHeaders[D2PlayerClass.SHEET_NAME] = D2PlayerClass.HEADERS
+		sheetHeaders[D2PlrMode.SHEET_NAME] = D2PlrMode.HEADERS
+		sheetHeaders[D2PlrType.SHEET_NAME] = D2PlrType.HEADERS
+		sheetHeaders[D2Properties.SHEET_NAME] = D2Properties.HEADERS
+		sheetHeaders[D2QualityItems.SHEET_NAME] = D2QualityItems.HEADERS
+		sheetHeaders[D2RarePrefix.SHEET_NAME] = D2RarePrefix.HEADERS
+		sheetHeaders[D2RareSuffix.SHEET_NAME] = D2RareSuffix.HEADERS
+		sheetHeaders[D2Runes.SHEET_NAME] = D2Runes.HEADERS
+		sheetHeaders[D2SetItems.SHEET_NAME] = D2SetItems.HEADERS
+		sheetHeaders[D2Sets.SHEET_NAME] = D2Sets.HEADERS
+		sheetHeaders[D2Shrines.SHEET_NAME] = D2Shrines.HEADERS
+		sheetHeaders[D2SkillCalc.SHEET_NAME] = D2SkillCalc.HEADERS
+		sheetHeaders[D2SkillDesc.SHEET_NAME] = D2SkillDesc.HEADERS
+		sheetHeaders[D2Skills.SHEET_NAME] = D2Skills.HEADERS
+		sheetHeaders[D2SoundEnviron.SHEET_NAME] = D2SoundEnviron.HEADERS
+		sheetHeaders[D2Sounds.SHEET_NAME] = D2Sounds.HEADERS
+		sheetHeaders[D2States.SHEET_NAME] = D2States.HEADERS
+		sheetHeaders[D2StorePage.SHEET_NAME] = D2StorePage.HEADERS
+		sheetHeaders[D2SuperUniques.SHEET_NAME] = D2SuperUniques.HEADERS
+		sheetHeaders[D2TreasureClassEx.SHEET_NAME] = D2TreasureClassEx.HEADERS
+		sheetHeaders[D2UniqueAppellation.SHEET_NAME] = D2UniqueAppellation.HEADERS
+		sheetHeaders[D2UniqueItems.SHEET_NAME] = D2UniqueItems.HEADERS
+		sheetHeaders[D2UniquePrefix.SHEET_NAME] = D2UniquePrefix.HEADERS
+		sheetHeaders[D2UniqueSuffix.SHEET_NAME] = D2UniqueSuffix.HEADERS
+		sheetHeaders[D2WanderingMon.SHEET_NAME] = D2WanderingMon.HEADERS
+		sheetHeaders[D2Weapons.SHEET_NAME] = D2Weapons.HEADERS
 	}
 	
 }
