@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2PetType(val header: String) {
+enum class D2PetType(override val header: String): D2Header {
 	
 	PET_TYPE("pet type"),
 	GROUP("group"),
@@ -26,6 +26,15 @@ enum class D2PetType(val header: String) {
 	companion object {
 		const val SHEET_NAME = "pettype"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = PET_TYPE
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

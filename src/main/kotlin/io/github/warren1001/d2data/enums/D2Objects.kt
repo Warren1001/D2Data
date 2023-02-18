@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2Objects(val header: String) {
+enum class D2Objects(override val header: String): D2Header {
 	
 	CLASS("Class"),
 	NAME("Name"),
@@ -153,6 +153,15 @@ enum class D2Objects(val header: String) {
 	companion object {
 		const val SHEET_NAME = "objects"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = CLASS
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

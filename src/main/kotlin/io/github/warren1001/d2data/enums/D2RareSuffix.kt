@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2RareSuffix(val header: String) {
+enum class D2RareSuffix(override val header: String): D2Header {
 	
 	NAME("name"),
 	VERSION("version"),
@@ -19,6 +19,15 @@ enum class D2RareSuffix(val header: String) {
 	companion object {
 		const val SHEET_NAME = "raresuffix"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = NAME
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

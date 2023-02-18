@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2MonLvl(val header: String) {
+enum class D2MonLvl(override val header: String): D2Header {
 	
 	LEVEL("Level"),
 	AC("AC"),
@@ -37,6 +37,15 @@ enum class D2MonLvl(val header: String) {
 	companion object {
 		const val SHEET_NAME = "monlvl"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = LEVEL
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

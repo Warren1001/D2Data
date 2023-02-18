@@ -1,12 +1,13 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2UniqueItems(val header: String) {
+enum class D2UniqueItems(override val header: String): D2Header {
 	
 	INDEX("index"),
 	ID("*ID"),
 	VERSION("version"),
 	ENABLED("enabled"),
-	LADDER("ladder"),
+	FIRST_LADDER_SEASON("firstLadderSeason"),
+	LAST_LADDER_SEASON("lastLadderSeason"),
 	RARITY("rarity"),
 	NO_LIMIT("nolimit"),
 	LVL("lvl"),
@@ -77,6 +78,15 @@ enum class D2UniqueItems(val header: String) {
 	companion object {
 		const val SHEET_NAME = "uniqueitems"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = ID
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2NPC(val header: String) {
+enum class D2NPC(override val header: String): D2Header {
 	
 	NPC("npc"),
 	BUY_MULT("buy mult"),
@@ -25,6 +25,15 @@ enum class D2NPC(val header: String) {
 	companion object {
 		const val SHEET_NAME = "npc"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = NPC
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

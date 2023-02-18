@@ -1,83 +1,101 @@
 package io.github.warren1001.d2data
 
+import io.github.warren1001.d2data.enums.D2Header
+import io.github.warren1001.d2data.enums.D2SheetInfo
+import io.github.warren1001.d2data.utils.ListConverter
 import io.github.warren1001.d2data.utils.ListDifference
+import io.github.warren1001.d2data.utils.TableCollection
 import java.io.File
 
-open class D2Sheet(protected val manager: D2Sheets, file: File, protected val trueHeaders: List<String>, protected var lookupIndex: Int = 0) {
+open class D2Sheet(protected val manager: D2Sheets, val file: File, val info: D2SheetInfo, val listConverter: ListConverter) {
 	
 	val name: String = file.nameWithoutExtension
-	val headers: List<String>
-	protected val columnLookup: MutableMap<String, Int> = mutableMapOf()
-	protected val rows: MutableList<MutableList<String>>
-	protected val rowIndices: List<String>
-	protected val rowLookup: MutableMap<String, Int> = mutableMapOf()
-	protected val columns: List<List<String>>
+	val columnHeaders: MutableList<String>
+	//protected val columnLookup: MutableMap<String, Int> = mutableMapOf()
+	//protected val rows: MutableList<MutableList<String>>
+	val table: TableCollection<String>
+	//protected val rowLookup: MutableMap<String, Int> = mutableMapOf()
+	//protected val columns: List<List<String>>
+	//protected val lookupIndex: Int
 	
 	init {
 		val lines = file.readLines().toMutableList()
-		headers = lines.removeFirst().split("\t")
-		headers.forEachIndexed { i, column -> columnLookup[column] = i }
-		rows = lines.map { it.split("\t").toMutableList() }.filter { it[0].lowercase() != "expansion" && it[0].isNotEmpty() }.toMutableList()
-		rowIndices = rows.map { it[lookupIndex] }
-		rowIndices.forEachIndexed { i, row -> rowLookup[row] = i }
-		columns = headers.indices.map { i -> rows.map { it[i] } }
+		columnHeaders = lines.removeFirst().split("\t").toMutableList()
+		//columnHeaders.forEachIndexed { i, column -> columnLookup[column] = i }
+		//rows = listConverter.convert(lines.map { listConverter.convert(it.split("\t")) })
+		val lookupColumn = info.getUniqueHeader()?.header?.let { columnHeaders.indexOf(it) } ?: 0
+		table = TableCollection(listConverter.convert(lines.map { listConverter.convert(it.split("\t")) }), columnHeaders, lookupColumn, listConverter, "")
+		//rowHeaders = rows.map { it[lookupIndex] }.toMutableList()
+		//columns = columnHeaders.indices.map { i -> rows.map { it[i] } }
 	}
 	
-	private fun findValue(key: String, header: Int): String {
-		return rows.firstOrNull { it[lookupIndex].lowercase() == key.lowercase() }?.get(header) ?: error("Could not find '$key' in column '${headers[lookupIndex]}' in '$name'")
+	//fun getData() = rows
+	
+	fun <E> mapIndexed(transform: (Int, MutableList<String>) -> E) = table.rows.mapIndexed(transform)
+	
+	fun createRow(index: Int) = table.createRow(index)
+	
+	fun deleteRow(index: Int) = table.deleteRow(index)
+	
+	fun createColumn(index: Int, columnName: String) {
+		columnHeaders.add(index, columnName)
+		table.createColumn(index, columnName)
 	}
 	
-	fun getValue(key: String, header: String): String {
-		val index = columnLookup[header] ?: throw IllegalArgumentException("Header $header not found in sheet $name")
-		return findValue(key, index)
+	fun deleteColumn(index: Int): String {
+		val columnName = columnHeaders.removeAt(index)
+		table.deleteColumn(index, columnName)
+		return columnName
 	}
 	
-	fun getValue(key: String, header: String, default: String): String {
-		val index = columnLookup[header] ?: throw IllegalArgumentException("Header $header not found in sheet $name")
-		val value = findValue(key, index)
-		return value.ifBlank { default }
+	operator fun set(row: Int, column: Int, value: String) {
+		table[row, column] = value
 	}
 	
-	fun getValue(row: Int, header: String): String {
-		val index = columnLookup[header] ?: throw IllegalArgumentException("Header $header not found in sheet $name")
-		return rows[row][index]
+	operator fun set(row: Int, columnName: String, value: String) {
+		table[row, columnName] = value
 	}
 	
-	fun getValue(row: Int, header: String, default: String): String {
-		val value = getValue(row, header)
-		return value.ifBlank { default }
+	operator fun set(row: Int, header: D2Header, value: String) {
+		this[row, header.header] = value
 	}
 	
-	fun getValueRef(referenceHeader: String, referenceValue: String, header: String): String {
-		val referenceIndex = columnLookup[referenceHeader] ?: throw IllegalArgumentException("Header $referenceHeader not found in sheet $name")
-		val index = columnLookup[header] ?: throw IllegalArgumentException("Header $header not found in sheet $name")
-		return rows.firstOrNull { it[referenceIndex].lowercase() == referenceValue.lowercase() }?.get(index) ?: error("Could not find '$referenceValue' in column '$referenceHeader' in '$name'")
-	}
+	operator fun get(row: Int, column: Int) = table[row, column]
 	
-	fun getValueAsInt(key: String, header: String) = getValue(key, header).toInt()
+	operator fun get(row: Int, columnName: String) = table[row, columnName]
 	
-	fun getValueAsInt(key: String, header: String, default: Int): Int {
-		val value = getValue(key, header)
-		return if (value.isBlank()) default else value.toInt()
-	}
+	operator fun get(row: Int, header: D2Header) = this[row, header.header]
 	
-	fun getValueAsInt(row: Int, header: String) = getValue(row, header).toInt()
+	operator fun get(key: String, column: Int) = table.find(key, column = column)
 	
-	fun getValueAsInt(row: Int, header: String, default: Int): Int {
-		val value = getValue(row, header)
-		return if (value.isBlank()) default else value.toInt()
-	}
+	operator fun get(key: String, lookupColumn: Int, column: Int) = table.find(key, lookupColumn, column)
 	
-	fun forEach(action: (index: Int) -> Unit) {
-		rows.forEachIndexed { index, list -> if (list[0].isNotEmpty() && list[0].lowercase() != "expansion") action(index) }
-	}
+	operator fun get(key: String, lookupColumn: Int, columnName: String) = table.find(key, lookupColumn, columnName)
+	
+	operator fun get(key: String, lookupColumnName: String, column: Int) = table.find(key, lookupColumnName, column)
+	
+	operator fun get(key: String, lookupColumnName: String, columnName: String) = table.find(key, lookupColumnName, columnName)
+	
+	operator fun get(key: String, lookupHeader: D2Header, column: Int) = table.find(key, lookupHeader.header, column)
+	
+	operator fun get(key: String, lookupHeader: D2Header, header: String) = this[key, lookupHeader.header, header]
+	
+	operator fun get(key: String, lookupHeader: D2Header, header: D2Header) = this[key, lookupHeader.header, header.header]
+	
+	operator fun get(key: String, lookupHeader: String, header: D2Header) = this[key, lookupHeader, header.header]
+	
+	operator fun get(key: String, lookupColumn: Int, header: D2Header) = this[key, lookupColumn, header.header]
+	
+	fun forEach(action: (index: Int) -> Unit) = table.forEachRow(action)
+	
+	fun save() = file.writeText(columnHeaders.joinToString("\t") + "\n" + table.rows.joinToString("\n") { it.joinToString("\t") })
 	
 	fun compare(new: D2Sheet) {
 		
-		val columnDiff = ListDifference(headers, new.headers)
+		val columnDiff = ListDifference(columnHeaders, new.columnHeaders)
 		val headerMatchedMappings = mutableMapOf<String, String>()
 		
-		val rowDiff = ListDifference(rowIndices, new.rowIndices)
+		val rowDiff = ListDifference(table.columns[table.lookupColumn], new.table.columns[new.table.lookupColumn])
 		val rowMatchedMappings = mutableMapOf<String, String>()
 		
 		if (columnDiff.firstOnly.isNotEmpty() && columnDiff.secondOnly.isNotEmpty()) {
@@ -85,12 +103,12 @@ open class D2Sheet(protected val manager: D2Sheets, file: File, protected val tr
 			val cachedFilteredNewColumns = mutableMapOf<String, List<String>>()
 			while (columnIterator.hasNext()) {
 				val header = columnIterator.next()
-				val filteredColumns = columns[columnLookup[header]!!].filterIndexed { i, _ -> rowDiff.shared.map { rowLookup[it]!! }.contains(i) }
+				val filteredColumns = table.findColumn(header).filterIndexed { i, _ -> rowDiff.shared.map { table.findRowIndex(it) }.contains(i) }
 				var bestSimilarity = 0.0F
 				var bestHeader = ""
 				for (newHeader in columnDiff.secondOnly) {
 					val filteredNewColumns = cachedFilteredNewColumns.getOrPut(newHeader) {
-						new.columns[new.columnLookup[newHeader]!!].filterIndexed { i, _ -> rowDiff.shared.map { new.rowLookup[it]!! }.contains(i) }
+						new.table.findColumn(newHeader).filterIndexed { i, _ -> rowDiff.shared.map { new.table.findRowIndex(it) }.contains(i) }
 					}
 					val similarity = filteredColumns.similarity(filteredNewColumns)
 					if (similarity > 0.9 && similarity > bestSimilarity) {
@@ -113,8 +131,8 @@ open class D2Sheet(protected val manager: D2Sheets, file: File, protected val tr
 				var bestSimilarity = 0.0F
 				var bestRow = ""
 				for (newRow in rowDiff.secondOnly) {
-					val similarity = rows[rowLookup[row]!!].filterIndexed { i, _ -> columnDiff.shared.map { columnLookup[it] }.contains(i) }
-						.similarity(new.rows[new.rowLookup[newRow]!!].filterIndexed { i, _ -> columnDiff.shared.map { new.columnLookup[it] }.contains(i) })
+					val similarity = table.findRow(row).filterIndexed { i, _ -> columnDiff.shared.map { table.findColumnIndex(it) }.contains(i) }
+						.similarity(new.table.findRow(row).filterIndexed { i, _ -> columnDiff.shared.map { new.table.findColumnIndex(it) }.contains(i) })
 					if (similarity > 0.95 && similarity > bestSimilarity) {
 						bestSimilarity = similarity
 						bestRow = newRow
@@ -145,7 +163,7 @@ open class D2Sheet(protected val manager: D2Sheets, file: File, protected val tr
 		}
 		
 		if (rowDiff.secondOnly.isNotEmpty()) {
-			val exploredRowIndices = new.rowIndices.toMutableList()
+			val exploredRowIndices = new.table.columns[new.table.lookupColumn].toMutableList()
 			rowDiff.secondOnly.forEach {
 				val rowIndex = exploredRowIndices.indexOf(it)
 				println("[$name] New row (${rowIndex + 1}):")
@@ -154,7 +172,7 @@ open class D2Sheet(protected val manager: D2Sheets, file: File, protected val tr
 			}
 		}
 		if (rowDiff.firstOnly.isNotEmpty()) {
-			val exploredRowIndices = rowIndices.toMutableList()
+			val exploredRowIndices = table.columns[table.lookupColumn].toMutableList()
 			rowDiff.firstOnly.forEach {
 				val rowIndex = exploredRowIndices.indexOf(it)
 				println("[$name] Removed row (${rowIndex + 1}):")
@@ -165,20 +183,20 @@ open class D2Sheet(protected val manager: D2Sheets, file: File, protected val tr
 		
 		if (rowDiff.shared.isNotEmpty()) {
 			rowDiff.shared.forEach { index ->
-				val oldRowIndex = rowLookup[index]!!
-				val oldRow = rows[oldRowIndex]
-				val oldRowFiltered = oldRow.filterIndexed { i, _ -> columnDiff.shared.map { columnLookup[it] }.contains(i) }
-				val newRowIndex = new.rowLookup[index]!!
-				val newRow = new.rows[newRowIndex]
-				val newRowFiltered = newRow.filterIndexed { i, _ -> columnDiff.shared.map { new.columnLookup[it] }.contains(i) }
+				val oldRowIndex = table.findRowIndex(index)
+				val oldRow = table.rows[oldRowIndex]
+				val oldRowFiltered = oldRow.filterIndexed { i, _ -> columnDiff.shared.map { table.findColumnIndex(it) }.contains(i) }
+				val newRowIndex = new.table.findRowIndex(index)
+				val newRow = new.table.rows[newRowIndex]
+				val newRowFiltered = newRow.filterIndexed { i, _ -> columnDiff.shared.map { new.table.findColumnIndex(it) }.contains(i) }
 				if (oldRowFiltered != newRowFiltered) {
 					if (oldRowIndex == newRowIndex) println("[$name] Modified row (${oldRowIndex + 1}): $index")
 					else println("[$name] Modified row (${oldRowIndex + 1},${newRowIndex + 1}): $index")
 					var oi = 0
 					var ni = 0
 					while (oi < oldRow.size && ni < newRow.size) {
-						val oldHeader = headers[oi]
-						val newHeader = new.headers[ni]
+						val oldHeader = columnHeaders[oi]
+						val newHeader = new.columnHeaders[ni]
 						if (oldHeader != newHeader && headerMatchedMappings[oldHeader] != newHeader) {
 							if (columnDiff.shared.contains(oldHeader)) {
 								if (newRow[ni].isNotEmpty()) println("\t${newHeader}: New column -> '${newRow[ni]}'")
@@ -193,12 +211,14 @@ open class D2Sheet(protected val manager: D2Sheets, file: File, protected val tr
 								if (newRow[ni].isNotEmpty()) println("\t${newHeader}: New column -> '${newRow[ni]}'")
 								ni++
 							} else {
-								println("---------- this shouldn't be possible ----------")
-								//println("\t${oldHeader}: '${oldRow[oi]}' -> ${newHeader}: '${newRow[ni]}'")
-								//println("ni: $ni, oi: $oi, oldRow.size: ${oldRow.size}, newRow.size: ${newRow.size}")
-								//println("------------------------------------------------")
-								//ni++
-								//oi++
+								error("this shouldn't be possible")
+								/*
+								println("\t${oldHeader}: '${oldRow[oi]}' -> ${newHeader}: '${newRow[ni]}'")
+								println("ni: $ni, oi: $oi, oldRow.size: ${oldRow.size}, newRow.size: ${newRow.size}")
+								println("------------------------------------------------")
+								ni++
+								oi++
+								*/
 							}
 						} else {
 							if (oldRow[oi] != newRow[ni]) {
@@ -211,14 +231,14 @@ open class D2Sheet(protected val manager: D2Sheets, file: File, protected val tr
 					}
 					while (oi < oldRow.size) {
 						if (oldRow[oi].isNotEmpty()) {
-							val oldHeader = headers[oi]
+							val oldHeader = columnHeaders[oi]
 							println("\t${oldHeader}: '${oldRow[oi]}' -> Removed column")
 						}
 						oi++
 					}
 					while (ni < newRow.size) {
 						if (newRow[ni].isNotEmpty()) {
-							val newHeader = new.headers[ni]
+							val newHeader = new.columnHeaders[ni]
 							println("\t${newHeader}: New column -> '${newRow[ni]}'")
 						}
 						ni++
@@ -228,12 +248,12 @@ open class D2Sheet(protected val manager: D2Sheets, file: File, protected val tr
 		}
 	}
 	
-	private fun formatColumn(header: String) = columns[columnLookup[header]!!].mapIndexed { i, s -> "${rowIndices[i]}: '$s'" }.filter { !it.contains("''") }
+	private fun formatColumn(column: String) = table.findColumn(column).mapIndexed { i, s -> "${table.getRowLookupValue(i)}: '$s'" }.filter { !it.contains("''") }
 	
-	private fun formatRow(index: String) = rows[rowLookup[index]!!].mapIndexed { i, s -> "${headers[i]}='$s'" }.filter { !it.contains("''") }
+	private fun formatRow(row: String) = table.findRow(row).mapIndexed { i, s -> "${columnHeaders[i]}='$s'" }.filter { !it.contains("''") }
 	
 	fun verify(): Boolean {
-		val diff = ListDifference(headers, trueHeaders)
+		val diff = ListDifference(columnHeaders, info.getHeaders())
 		return diff.firstOnly.isEmpty() && diff.secondOnly.isEmpty()
 	}
 	

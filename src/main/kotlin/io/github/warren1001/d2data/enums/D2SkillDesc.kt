@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2SkillDesc(val header: String) {
+enum class D2SkillDesc(override val header: String): D2Header {
 	
 	SKILL_DESC("skilldesc"),
 	SKILL_PAGE("SkillPage"),
@@ -119,11 +119,22 @@ enum class D2SkillDesc(val header: String) {
 	DSC_3_TEXT_B7("dsc3textb7"),
 	DSC_3_CALC_A7("dsc3calca7"),
 	DSC_3_CALC_B7("dsc3calcb7"),
+	ITEM_PROC_TEXT("item proc text"),
+	ITEM_PROC_DESCLINE_COUNT("item proc descline count"),
 	EOL("*eol");
 	
 	companion object {
 		const val SHEET_NAME = "skilldesc"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = SKILL_DESC
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

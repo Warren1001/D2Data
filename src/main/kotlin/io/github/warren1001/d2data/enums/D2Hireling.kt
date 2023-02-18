@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2Hireling(val header: String) {
+enum class D2Hireling(override val header: String): D2Header {
 	
 	HIRELING("Hireling"),
 	SUB_TYPE("*SubType"),
@@ -83,6 +83,14 @@ enum class D2Hireling(val header: String) {
 	companion object {
 		const val SHEET_NAME = "hireling"
 		val HEADERS = values().map { it.header }
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = null
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

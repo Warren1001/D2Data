@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2TreasureClassEx(val header: String) {
+enum class D2TreasureClassEx(override val header: String): D2Header {
 	
 	TREASURE_CLASS("Treasure Class"),
 	GROUP("group"),
@@ -34,13 +34,23 @@ enum class D2TreasureClassEx(val header: String) {
 	ITEM_PROB_SUM("*ItemProbSum"),
 	ITEM_PROB_TOTAL("*ItemProbTotal"),
 	TREASURE_CLASS_DROP_CHANCE("*TreasureClassDropChance"),
-	LADDER("ladder"),
+	FIRST_LADDER_SEASON("firstLadderSeason"),
+	LAST_LADDER_SEASON("lastLadderSeason"),
 	NO_ALWAYS_SPAWN("noAlwaysSpawn"),
 	EOL("*eol");
 	
 	companion object {
 		const val SHEET_NAME = "treasureclassex"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = TREASURE_CLASS
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

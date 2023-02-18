@@ -1,11 +1,12 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2Runes(val header: String) {
+enum class D2Runes(override val header: String): D2Header {
 	
 	ID("Name"),
 	RUNEWORD_NAME("*Rune Name"),
 	COMPLETE("complete"),
-	SERVER("server"),
+	FIRST_LADDER_SEASON("firstLadderSeason"),
+	LAST_LADDER_SEASON("lastLadderSeason"),
 	PATCH_RELEASE("*Patch Release"),
 	I_TYPE_1("itype1"),
 	I_TYPE_2("itype2"),
@@ -56,6 +57,15 @@ enum class D2Runes(val header: String) {
 	companion object {
 		const val SHEET_NAME = "runes"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = ID
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

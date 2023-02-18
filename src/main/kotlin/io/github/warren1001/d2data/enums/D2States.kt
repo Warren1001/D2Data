@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2States(val header: String) {
+enum class D2States(override val header: String): D2Header {
 	
 	STATE("state"),
 	ID("*ID"),
@@ -74,11 +74,21 @@ enum class D2States(val header: String) {
 	SRV_ACTIVE_FUNC("srvactivefunc"),
 	CAN_STACK("canstack"),
 	SUNDER_FULL("sunderfull"),
+	SUNDER_RES_REDUCE("sunder-res-reduce"),
 	EOL("*eol");
 	
 	companion object {
 		const val SHEET_NAME = "states"
 		val HEADERS = values().map { it.header }
+		val UNIQUE_HEADER = STATE
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = UNIQUE_HEADER
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2QualityItems(val header: String) {
+enum class D2QualityItems(override val header: String): D2Header {
 	
 	MOD_1_CODE("mod1code"),
 	MOD_1_PARAM("mod1param"),
@@ -24,6 +24,14 @@ enum class D2QualityItems(val header: String) {
 	companion object {
 		const val SHEET_NAME = "qualityitems"
 		val HEADERS = values().map { it.header }
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = null
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }

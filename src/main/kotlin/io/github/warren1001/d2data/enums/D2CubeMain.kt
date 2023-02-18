@@ -1,10 +1,11 @@
 package io.github.warren1001.d2data.enums
 
-enum class D2CubeMain(val header: String) {
+enum class D2CubeMain(override val header: String): D2Header {
 	
 	DESCRIPTION("description"),
 	ENABLED("enabled"),
-	LADDER("ladder"),
+	FIRST_LADDER_SEASON("firstLadderSeason"),
+	LAST_LADDER_SEASON("lastLadderSeason"),
 	MIN_DIFF("min diff"),
 	VERSION("version"),
 	OP("op"),
@@ -111,6 +112,14 @@ enum class D2CubeMain(val header: String) {
 	companion object {
 		const val SHEET_NAME = "cubemain"
 		val HEADERS = values().map { it.header }
+		const val HARDCODE = false
+		
+		val INFO = object: D2SheetInfo {
+			override fun getSheetName() = SHEET_NAME
+			override fun getHeaders() = HEADERS
+			override fun getUniqueHeader() = null
+			override fun isHardcode() = HARDCODE
+		}
 	}
 	
 }
