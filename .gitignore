@@ -23,6 +23,8 @@ tmp/**/*
 src/test/
 
 current/
+current - Copy/
 leaked/
 new/
 *.txt
+/2.6/
