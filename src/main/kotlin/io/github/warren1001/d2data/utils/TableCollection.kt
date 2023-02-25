@@ -1,6 +1,6 @@
 package io.github.warren1001.d2data.utils
 
-import io.github.warren1001.d2data.enums.D2Header
+import io.github.warren1001.d2data.enums.sheet.D2Header
 
 open class TableCollection<E>(val rows: MutableList<MutableList<E>>, columnIdentifiers: List<Any>, val lookupColumn: Int, protected val listConverter: ListConverter, private val defaultValue: E) {
 	

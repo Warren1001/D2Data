@@ -1,10 +1,10 @@
 package io.github.warren1001.d2data
 
-import io.github.warren1001.d2data.enums.*
+import io.github.warren1001.d2data.enums.sheet.*
 import java.io.File
 
-val DIRECTORY = File("current")
-val MANAGER = D2Sheets(DIRECTORY)
+val DIRECTORY = File("2.6")
+val MANAGER = D2Files(DIRECTORY)
 
 fun main() {
 	
@@ -16,14 +16,14 @@ fun main() {
 		println("------------------------------------")
 	}
 	
-	compareDifferences()
+	//retrieveLatestDataFiles(File("C:\\Games\\Diablo II Resurrected\\Data"))
+	//compareDifferences()
 	//makeMod()
-	//normalizeAffixRarity()
 	
 }
 
 fun compareDifferences() {
-	val newManager = D2Sheets(File("new"))
+	val newManager = D2Files(File("new"))
 	newManager.loadAll()
 	MANAGER.compareToNew(newManager)
 }
@@ -34,8 +34,32 @@ private val doNotMax = listOf(
 	"magicarrow", "explosivearrow"
 )
 
+fun retrieveLatestDataFiles(gameDir: File) {
+	val gameExcelDir = File(gameDir, "global${File.separator}excel")
+	val gameHDExcelDir = File(gameDir, "hd${File.separator}global${File.separator}excel")
+	val gameLocalDir = File(gameDir, "local${File.separator}lng${File.separator}strings")
+	val destDir = File("${System.currentTimeMillis()}")
+	destDir.mkdirs()
+	gameExcelDir.forEachFileDeep {
+		if (it.extension == "txt" || it.extension == "json") {
+			it.copyTo(File(destDir, it.relativeTo(gameDir).path), true)
+		}
+	}
+	gameHDExcelDir.forEachFileDeep {
+		if (it.extension == "json") {
+			it.copyTo(File(destDir, it.relativeTo(gameDir).path), true)
+		}
+	}
+	gameLocalDir.forEachFileDeep(listOf("metadata")) {
+		if (it.extension == "json") {
+			it.copyTo(File(destDir, it.relativeTo(gameDir).path), true)
+		}
+	}
+	
+}
+
 fun makeMod() {
-	val monLvl = MANAGER.getSheet(D2MonLvl.SHEET_NAME)!!
+	val monLvl = MANAGER.getSheet(D2MonLvl.FILE_PATH)!!
 	monLvl.forEach {
 		monLvl[it, D2MonLvl.XP] = "100"
 		monLvl[it, D2MonLvl.XP_NIGHTMARE] = "100"
@@ -45,9 +69,9 @@ fun makeMod() {
 		monLvl[it, D2MonLvl.L_XP_HELL] = "100"
 	}
 	monLvl.save()
-	val weapons = MANAGER.getSheet(D2Weapons.SHEET_NAME)!!
-	val armor = MANAGER.getSheet(D2Armor.SHEET_NAME)!!
-	val misc = MANAGER.getSheet(D2Misc.SHEET_NAME)!!
+	val weapons = MANAGER.getSheet(D2Weapons.FILE_PATH)!!
+	val armor = MANAGER.getSheet(D2Armor.FILE_PATH)!!
+	val misc = MANAGER.getSheet(D2Misc.FILE_PATH)!!
 	weapons.forEach {
 		weapons[it, D2Weapons.SHOW_LEVEL] = "1"
 		weapons[it, D2Weapons.GAMBLE_COST] = "1"
@@ -63,7 +87,7 @@ fun makeMod() {
 	weapons.save()
 	armor.save()
 	misc.save()
-	val autoMagic = MANAGER.getSheet(D2AutoMagic.SHEET_NAME)!!
+	val autoMagic = MANAGER.getSheet(D2AutoMagic.FILE_PATH)!!
 	autoMagic.forEach {
 		if (autoMagic[it, D2AutoMagic.FREQUENCY] != "0") autoMagic[it, D2AutoMagic.FREQUENCY] = "1"
 		if (autoMagic[it, D2AutoMagic.MOD_1_CODE] !in doNotMax) autoMagic[it, D2AutoMagic.MOD_1_MIN] = autoMagic[it, D2AutoMagic.MOD_1_MAX]
@@ -71,23 +95,63 @@ fun makeMod() {
 		if (autoMagic[it, D2AutoMagic.MOD_3_CODE] !in doNotMax) autoMagic[it, D2AutoMagic.MOD_3_MIN] = autoMagic[it, D2AutoMagic.MOD_3_MAX]
 	}
 	autoMagic.save()
-	val magicPrefix = MANAGER.getSheet(D2MagicPrefix.SHEET_NAME)!!
+	val prefixGroups = mutableMapOf<String, MutableList<Int>>()
+	val magicPrefix = MANAGER.getSheet(D2MagicPrefix.FILE_PATH)!!
 	magicPrefix.forEach {
+		if (magicPrefix[it, D2MagicPrefix.SPAWNABLE] == "1" && magicPrefix[it, D2MagicPrefix.FREQUENCY] != "0") {
+			val group = magicPrefix[it, D2MagicPrefix.GROUP]
+			if (group !in prefixGroups) prefixGroups[group] = mutableListOf()
+			prefixGroups[group]!!.add(it)
+		}
+		magicPrefix[it, D2MagicPrefix.MAX_LEVEL] = ""
 		if (magicPrefix[it, D2MagicPrefix.FREQUENCY] != "0") magicPrefix[it, D2MagicPrefix.FREQUENCY] = "1"
 		if (magicPrefix[it, D2MagicPrefix.MOD_1_CODE] !in doNotMax) magicPrefix[it, D2MagicPrefix.MOD_1_MIN] = magicPrefix[it, D2MagicPrefix.MOD_1_MAX]
 		if (magicPrefix[it, D2MagicPrefix.MOD_2_CODE] !in doNotMax) magicPrefix[it, D2MagicPrefix.MOD_2_MIN] = magicPrefix[it, D2MagicPrefix.MOD_2_MAX]
 		if (magicPrefix[it, D2MagicPrefix.MOD_3_CODE] !in doNotMax) magicPrefix[it, D2MagicPrefix.MOD_3_MIN] = magicPrefix[it, D2MagicPrefix.MOD_3_MAX]
 	}
+	prefixGroups.forEach { (_, indices) ->
+		indices.forEachIndexed { listIndex, rowIndex ->
+			if (
+				listIndex != indices.lastIndex &&
+				(magicPrefix[indices[listIndex + 1], D2MagicPrefix.LEVEL].toIntOrNull() ?: 0) > (magicPrefix[rowIndex, D2MagicPrefix.LEVEL].toIntOrNull() ?: 0) &&
+				(magicPrefix[indices[listIndex + 1], D2MagicPrefix.ITYPE_1] == magicPrefix[rowIndex, D2MagicPrefix.ITYPE_1])
+				) {
+					magicPrefix[rowIndex, D2MagicPrefix.MAX_LEVEL] = (magicPrefix[indices[listIndex + 1], D2MagicPrefix.LEVEL].toInt() - 1).toString()
+					println("setting prefix ${magicPrefix[rowIndex, D2MagicPrefix.NAME]} (${magicPrefix[rowIndex, D2MagicPrefix.LEVEL]})" +
+							" max level to ${magicPrefix[rowIndex, D2MagicPrefix.MAX_LEVEL]}")
+			}
+		}
+	}
 	magicPrefix.save()
-	val magicSuffix = MANAGER.getSheet(D2MagicSuffix.SHEET_NAME)!!
+	val suffixGroups = mutableMapOf<String, MutableList<Int>>()
+	val magicSuffix = MANAGER.getSheet(D2MagicSuffix.FILE_PATH)!!
 	magicSuffix.forEach {
+		if (magicSuffix[it, D2MagicSuffix.SPAWNABLE] == "1" && magicSuffix[it, D2MagicSuffix.FREQUENCY] != "0") {
+			val group = magicSuffix[it, D2MagicSuffix.GROUP]
+			if (group !in suffixGroups) suffixGroups[group] = mutableListOf()
+			suffixGroups[group]!!.add(it)
+		}
+		magicSuffix[it, D2MagicSuffix.MAX_LEVEL] = ""
 		if (magicSuffix[it, D2MagicSuffix.FREQUENCY] != "0") magicSuffix[it, D2MagicSuffix.FREQUENCY] = "1"
 		if (magicSuffix[it, D2MagicSuffix.MOD_1_CODE] !in doNotMax) magicSuffix[it, D2MagicSuffix.MOD_1_MIN] = magicSuffix[it, D2MagicSuffix.MOD_1_MAX]
 		if (magicSuffix[it, D2MagicSuffix.MOD_2_CODE] !in doNotMax) magicSuffix[it, D2MagicSuffix.MOD_2_MIN] = magicSuffix[it, D2MagicSuffix.MOD_2_MAX]
 		if (magicSuffix[it, D2MagicSuffix.MOD_3_CODE] !in doNotMax) magicSuffix[it, D2MagicSuffix.MOD_3_MIN] = magicSuffix[it, D2MagicSuffix.MOD_3_MAX]
 	}
+	suffixGroups.forEach { (_, indices) ->
+		indices.forEachIndexed { listIndex, rowIndex ->
+			if (
+				listIndex != indices.lastIndex &&
+				(magicSuffix[indices[listIndex + 1], D2MagicSuffix.LEVEL].toIntOrNull() ?: 0) > (magicSuffix[rowIndex, D2MagicSuffix.LEVEL].toIntOrNull() ?: 0) &&
+				(magicSuffix[indices[listIndex + 1], D2MagicSuffix.ITYPE_1] == magicSuffix[rowIndex, D2MagicSuffix.ITYPE_1])
+				) {
+					magicSuffix[rowIndex, D2MagicSuffix.MAX_LEVEL] = (magicSuffix[indices[listIndex + 1], D2MagicSuffix.LEVEL].toInt() - 1).toString()
+					println("setting suffix ${magicSuffix[rowIndex, D2MagicSuffix.NAME]} (${magicSuffix[rowIndex, D2MagicSuffix.LEVEL]})" +
+							" max level to ${magicSuffix[rowIndex, D2MagicSuffix.MAX_LEVEL]}")
+			}
+		}
+	}
 	magicSuffix.save()
-	val setItems = MANAGER.getSheet(D2SetItems.SHEET_NAME)!!
+	val setItems = MANAGER.getSheet(D2SetItems.FILE_PATH)!!
 	setItems.forEach {
 		if (setItems[it, D2SetItems.PROP_1] !in doNotMax) setItems[it, D2SetItems.MIN_1] = setItems[it, D2SetItems.MAX_1]
 		if (setItems[it, D2SetItems.PROP_2] !in doNotMax) setItems[it, D2SetItems.MIN_2] = setItems[it, D2SetItems.MAX_2]
@@ -110,7 +174,7 @@ fun makeMod() {
 		if (setItems[it, D2SetItems.A_PROP_5_B] !in doNotMax) setItems[it, D2SetItems.A_MIN_5_B] = setItems[it, D2SetItems.A_MAX_5_B]
 	}
 	setItems.save()
-	val runes = MANAGER.getSheet(D2Runes.SHEET_NAME)!!
+	val runes = MANAGER.getSheet(D2Runes.FILE_PATH)!!
 	runes.forEach {
 		if (runes[it, D2Runes.T1_CODE_1] !in doNotMax) runes[it, D2Runes.T1_MIN_1] = runes[it, D2Runes.T1_MAX_1]
 		if (runes[it, D2Runes.T1_CODE_2] !in doNotMax) runes[it, D2Runes.T1_MIN_2] = runes[it, D2Runes.T1_MAX_2]
@@ -121,8 +185,9 @@ fun makeMod() {
 		if (runes[it, D2Runes.T1_CODE_7] !in doNotMax) runes[it, D2Runes.T1_MIN_7] = runes[it, D2Runes.T1_MAX_7]
 	}
 	runes.save()
-	val uniqueItems = MANAGER.getSheet(D2UniqueItems.SHEET_NAME)!!
+	val uniqueItems = MANAGER.getSheet(D2UniqueItems.FILE_PATH)!!
 	uniqueItems.forEach {
+		uniqueItems[it, D2UniqueItems.RARITY] = "1"
 		uniqueItems[it, D2UniqueItems.NO_LIMIT] = "1"
 		if (uniqueItems[it, D2UniqueItems.PROP_1] !in doNotMax) uniqueItems[it, D2UniqueItems.MIN_1] = uniqueItems[it, D2UniqueItems.MAX_1]
 		if (uniqueItems[it, D2UniqueItems.PROP_2] !in doNotMax) uniqueItems[it, D2UniqueItems.MIN_2] = uniqueItems[it, D2UniqueItems.MAX_2]

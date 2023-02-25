@@ -1,13 +1,13 @@
 package io.github.warren1001.d2data
 
-import io.github.warren1001.d2data.enums.D2Header
-import io.github.warren1001.d2data.enums.D2SheetInfo
+import io.github.warren1001.d2data.enums.sheet.D2Header
+import io.github.warren1001.d2data.enums.sheet.D2SheetInfo
 import io.github.warren1001.d2data.utils.ListConverter
 import io.github.warren1001.d2data.utils.ListDifference
 import io.github.warren1001.d2data.utils.TableCollection
 import java.io.File
 
-open class D2Sheet(protected val manager: D2Sheets, val file: File, val info: D2SheetInfo, val listConverter: ListConverter) {
+open class D2Sheet(protected val manager: D2Files, val file: File, val info: D2SheetInfo, val listConverter: ListConverter) {
 	
 	val name: String = file.nameWithoutExtension
 	val columnHeaders: MutableList<String>
@@ -17,6 +17,8 @@ open class D2Sheet(protected val manager: D2Sheets, val file: File, val info: D2
 	//protected val rowLookup: MutableMap<String, Int> = mutableMapOf()
 	//protected val columns: List<List<String>>
 	//protected val lookupIndex: Int
+	
+	private val defaultInt = 0
 	
 	init {
 		val lines = file.readLines().toMutableList()
@@ -68,6 +70,10 @@ open class D2Sheet(protected val manager: D2Sheets, val file: File, val info: D2
 	
 	operator fun get(key: String, column: Int) = table.find(key, column = column)
 	
+	operator fun get(key: String, columnKey: String) = table.find(key, columnKey = columnKey)
+	
+	operator fun get(key: String, header: D2Header) = this[key, header.header]
+	
 	operator fun get(key: String, lookupColumn: Int, column: Int) = table.find(key, lookupColumn, column)
 	
 	operator fun get(key: String, lookupColumn: Int, columnName: String) = table.find(key, lookupColumn, columnName)
@@ -85,6 +91,30 @@ open class D2Sheet(protected val manager: D2Sheets, val file: File, val info: D2
 	operator fun get(key: String, lookupHeader: String, header: D2Header) = this[key, lookupHeader, header.header]
 	
 	operator fun get(key: String, lookupColumn: Int, header: D2Header) = this[key, lookupColumn, header.header]
+	
+	fun asInt(row: Int, column: Int, default: Int = defaultInt) = table[row, column].let { if (it.isBlank()) default else it.toInt() }
+	
+	fun asInt(row: Int, columnName: String, default: Int = defaultInt) = table[row, columnName].let { if (it.isBlank()) default else it.toInt() }
+	
+	fun asInt(row: Int, header: D2Header, default: Int = defaultInt) = asInt(row, header.header, default = default)
+	
+	fun asInt(key: String, column: Int, default: Int = defaultInt) = table.find(key, column = column).let { if (it.isBlank()) default else it.toInt() }
+	
+	fun asInt(key: String, columnKey: String, default: Int = defaultInt) = table.find(key, columnKey = columnKey).let { if (it.isBlank()) default else it.toInt() }
+	
+	fun asInt(key: String, header: D2Header, default: Int = defaultInt) = asInt(key, header.header, default = default)
+	
+	fun asInt(key: String, lookupColumnName: String, column: Int, default: Int = defaultInt) = table.find(key, lookupColumnName, column).let { if (it.isBlank()) default else it.toInt() }
+	
+	fun asInt(key: String, lookupColumnName: String, columnName: String, default: Int = defaultInt) = table.find(key, lookupColumnName, columnName).let { if (it.isBlank()) default else it.toInt() }
+	
+	fun asInt(key: String, lookupHeader: D2Header, column: Int, default: Int = defaultInt) = table.find(key, lookupHeader.header, column).let { if (it.isBlank()) default else it.toInt() }
+	
+	fun asInt(key: String, lookupHeader: D2Header, header: String, default: Int = defaultInt) = asInt(key, lookupHeader.header, header, default = default)
+	
+	fun asInt(key: String, lookupHeader: D2Header, header: D2Header, default: Int = defaultInt) = asInt(key, lookupHeader.header, header.header, default = default)
+	
+	fun asInt(key: String, lookupHeader: String, header: D2Header, default: Int = defaultInt) = asInt(key, lookupHeader, header.header, default = default)
 	
 	fun forEach(action: (index: Int) -> Unit) = table.forEachRow(action)
 	
