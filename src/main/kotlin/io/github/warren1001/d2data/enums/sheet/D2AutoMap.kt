@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2AutoMap(override val header: String): D2Header {
+enum class D2AutoMap(header: String, vararg headerHistory: String): D2Header {
 	
 	LEVEL_NAME("LevelName"),
 	TILE_NAME("TileName"),
@@ -18,9 +18,11 @@ enum class D2AutoMap(override val header: String): D2Header {
 	TYPE_4("*Type4"),
 	CEL_4("Cel4");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/automap.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/automap.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		const val HARDCODE = false
 		
 		val INFO = object: D2SheetInfo {

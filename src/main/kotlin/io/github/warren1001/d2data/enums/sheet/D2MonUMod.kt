@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2MonUMod(override val header: String): D2Header {
+enum class D2MonUMod(header: String, vararg headerHistory: String): D2Header {
 	
 	UNIQUE_MOD("uniquemod"),
 	ID("id"),
@@ -23,9 +23,11 @@ enum class D2MonUMod(override val header: String): D2Header {
 	CONSTANT_DESC("*constant desc"),
 	EOL("*eol");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/monumod.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/monumod.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = UNIQUE_MOD
 		const val HARDCODE = false
 		

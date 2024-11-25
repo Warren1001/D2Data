@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2MagicPrefix(override val header: String): D2Header {
+enum class D2MagicPrefix(header: String, vararg headerHistory: String): D2Header {
 	
 	NAME("Name"),
 	VERSION("version"),
@@ -44,9 +44,11 @@ enum class D2MagicPrefix(override val header: String): D2Header {
 	MULTIPLY("multiply"),
 	ADD("add");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/magicprefix.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/magicprefix.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		const val HARDCODE = false
 		
 		val INFO = object: D2SheetInfo {

@@ -1,4 +1,4 @@
-package io.github.warren1001.d2data
+package io.github.warren1001.d2data.file
 
 import com.fasterxml.jackson.core.json.JsonReadFeature
 import com.fasterxml.jackson.databind.JsonNode
@@ -21,7 +21,7 @@ class D2Json(val file: File) {
 	}
 	
 	val name = file.nameWithoutExtension
-	val root: JsonNode = file.readText().replace("\uFEFF", "").let {
+	val root: JsonNode = file.readText(Charsets.UTF_8).replace("\uFEFF", "").let {
 		try {
 			mapper.readTree(it)
 		} catch (e: Exception) {
@@ -29,13 +29,6 @@ class D2Json(val file: File) {
 			throw e
 		}
 	}
-	private val lookup: Map<String, JsonNode> = if (root.isArray) {
-		root.asIterable().associateBy { it["Key"].asText() }
-	} else {
-		emptyMap()
-	}
-	
-	operator fun get(key: String): JsonNode = lookup[key]!!
 	
 	fun save() = mapper.writeValue(file, root)
 	

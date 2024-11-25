@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2PetType(override val header: String): D2Header {
+enum class D2PetType(header: String, vararg headerHistory: String): D2Header {
 	
 	PET_TYPE("pet type"),
 	GROUP("group"),
@@ -25,9 +25,11 @@ enum class D2PetType(override val header: String): D2Header {
 	M_CLASS_4("mclass4"),
 	M_ICON_4("micon4");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/pettype.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/pettype.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = PET_TYPE
 		const val HARDCODE = false
 		

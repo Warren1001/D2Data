@@ -2,14 +2,16 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2PlayerClass(override val header: String): D2Header {
+enum class D2PlayerClass(header: String, vararg headerHistory: String): D2Header {
 	
 	PLAYER_CLASS("Player Class"),
 	CODE("Code");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/playerclass.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/playerclass.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = PLAYER_CLASS
 		const val HARDCODE = true
 		

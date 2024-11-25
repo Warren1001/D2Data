@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2Hireling(override val header: String): D2Header {
+enum class D2Hireling(header: String, vararg headerHistory: String): D2Header {
 	
 	HIRELING("Hireling"),
 	SUB_TYPE("*SubType"),
@@ -82,9 +82,11 @@ enum class D2Hireling(override val header: String): D2Header {
 	RESURRECT_COST_MAX("resurrectcostmax"),
 	EQUIVALENT_CHAR_CLASS("equivalentcharclass");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/hireling.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/hireling.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		const val HARDCODE = false
 		
 		val INFO = object: D2SheetInfo {

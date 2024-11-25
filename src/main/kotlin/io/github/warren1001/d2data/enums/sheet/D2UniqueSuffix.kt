@@ -2,13 +2,15 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2UniqueSuffix(override val header: String): D2Header {
+enum class D2UniqueSuffix(header: String, vararg headerHistory: String): D2Header {
 	
 	NAME("Name");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/uniquesuffix.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/uniquesuffix.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = NAME
 		const val HARDCODE = false
 		

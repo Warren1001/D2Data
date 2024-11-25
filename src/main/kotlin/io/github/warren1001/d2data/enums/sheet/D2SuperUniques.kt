@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2SuperUniques(override val header: String): D2Header {
+enum class D2SuperUniques(header: String, vararg headerHistory: String): D2Header {
 	
 	SUPER_UNIQUE("Superunique"),
 	NAME("Name"),
@@ -28,9 +28,11 @@ enum class D2SuperUniques(override val header: String): D2Header {
 	TC_HELL_DESECRATED("TC(H) Desecrated"),
 	EOL("*eol");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/superuniques.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/superuniques.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = SUPER_UNIQUE
 		const val HARDCODE = false
 		

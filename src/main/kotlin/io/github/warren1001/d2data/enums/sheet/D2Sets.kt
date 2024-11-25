@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2Sets(override val header: String): D2Header {
+enum class D2Sets(header: String, vararg headerHistory: String): D2Header {
 	
 	INDEX("index"),
 	NAME("name"),
@@ -73,9 +73,11 @@ enum class D2Sets(override val header: String): D2Header {
 	F_MAX_8("FMax8"),
 	EOL("*eol");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/sets.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/sets.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = INDEX
 		const val HARDCODE = false
 		

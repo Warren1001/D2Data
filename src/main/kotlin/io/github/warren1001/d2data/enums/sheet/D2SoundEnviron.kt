@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2SoundEnviron(override val header: String): D2Header {
+enum class D2SoundEnviron(header: String, vararg headerHistory: String): D2Header {
 	
 	HANDLE("Handle"),
 	INDEX("Index"),
@@ -42,9 +42,11 @@ enum class D2SoundEnviron(override val header: String): D2Header {
 	VOX_EAX_REV_DELAY("VOX EAX Rev Delay"),
 	INHERIT_ENVIRONMENT("InheritEnvrionment"); // blizzard typo'd the header
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/soundenviron.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/soundenviron.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = HANDLE
 		const val HARDCODE = false
 		

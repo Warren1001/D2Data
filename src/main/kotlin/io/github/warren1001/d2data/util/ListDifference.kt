@@ -1,4 +1,4 @@
-package io.github.warren1001.d2data.utils
+package io.github.warren1001.d2data.util
 
 class ListDifference<T>(private val first: List<T>, private val second: List<T>) {
 	
@@ -20,5 +20,7 @@ class ListDifference<T>(private val first: List<T>, private val second: List<T>)
 			}
 		}
 	}
+	
+	fun hasNoDifference() = firstOnly.isEmpty() && secondOnly.isEmpty()
 	
 }

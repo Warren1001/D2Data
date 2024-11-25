@@ -2,14 +2,16 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2MissCalc(override val header: String): D2Header {
+enum class D2MissCalc(header: String, vararg headerHistory: String): D2Header {
 	
 	CODE("code"),
 	DESCRIPTION("*description");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/misscalc.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/misscalc.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = CODE
 		const val HARDCODE = true
 		

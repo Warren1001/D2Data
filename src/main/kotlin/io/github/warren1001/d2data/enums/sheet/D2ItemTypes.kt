@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2ItemTypes(override val header: String): D2Header {
+enum class D2ItemTypes(header: String, vararg headerHistory: String): D2Header {
 	
 	ITEM_TYPE("ItemType"),
 	CODE("Code"),
@@ -41,10 +41,12 @@ enum class D2ItemTypes(override val header: String): D2Header {
 	STORE_PAGE("StorePage"),
 	EOL("*eol");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/itemtypes.txt".properSeparator()
-		val HEADERS = values().map { it.header }
-		val UNIQUE_HEADER = ITEM_TYPE
+		val FILE_PATH = "data/global/excel/itemtypes.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
+		val UNIQUE_HEADER = CODE
 		const val HARDCODE = false
 		
 		val INFO = object: D2SheetInfo {

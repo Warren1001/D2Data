@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2Skills(override val header: String): D2Header {
+enum class D2Skills(header: String, vararg headerHistory: String): D2Header {
 	
 	SKILL("skill"),
 	ID("*Id"),
@@ -73,6 +73,14 @@ enum class D2Skills(override val header: String): D2Header {
 	PASSIVE_CALC_9("passivecalc9"),
 	PASSIVE_STAT_10("passivestat10"),
 	PASSIVE_CALC_10("passivecalc10"),
+	PASSIVE_STAT_11("passivestat11"), // Added in D2R 2.5 or 2.6 or 2.7?
+	PASSIVE_CALC_11("passivecalc11"),
+	PASSIVE_STAT_12("passivestat12"),
+	PASSIVE_CALC_12("passivecalc12"),
+	PASSIVE_STAT_13("passivestat13"),
+	PASSIVE_CALC_13("passivecalc13"),
+	PASSIVE_STAT_14("passivestat14"),
+	PASSIVE_CALC_14("passivecalc14"),
 	SUMMON("summon"),
 	PET_TYPE("pettype"),
 	PET_MAX("petmax"),
@@ -290,9 +298,11 @@ enum class D2Skills(override val header: String): D2Header {
 	COST_ADD("cost add"),
 	EOL("*eol");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/skills.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/skills.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = SKILL
 		const val HARDCODE = false
 		

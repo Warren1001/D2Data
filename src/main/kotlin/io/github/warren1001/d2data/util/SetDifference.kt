@@ -1,4 +1,4 @@
-package io.github.warren1001.d2data.utils
+package io.github.warren1001.d2data.util
 
 class SetDifference<T>(private val first: Set<T>, private val second: Set<T>) {
 	

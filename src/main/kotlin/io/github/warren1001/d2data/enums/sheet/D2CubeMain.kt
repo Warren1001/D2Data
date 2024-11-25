@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2CubeMain(override val header: String): D2Header {
+enum class D2CubeMain(header: String, vararg headerHistory: String): D2Header {
 	
 	DESCRIPTION("description"),
 	ENABLED("enabled"),
@@ -111,9 +111,11 @@ enum class D2CubeMain(override val header: String): D2Header {
 	C_MOD_5_MAX("c mod 5 max"),
 	EOL("*eol");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/cubemain.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/cubemain.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		const val HARDCODE = false
 		
 		val INFO = object: D2SheetInfo {

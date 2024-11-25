@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2MonProp(override val header: String): D2Header {
+enum class D2MonProp(header: String, vararg headerHistory: String): D2Header {
 	
 	ID("Id"),
 	PROP_1("prop1"),
@@ -97,9 +97,11 @@ enum class D2MonProp(override val header: String): D2Header {
 	MAX_6_HELL("max6 (H)"),
 	EOL("*eol");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/monprop.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/monprop.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = ID
 		const val HARDCODE = false
 		

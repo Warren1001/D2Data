@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2Overlay(override val header: String): D2Header {
+enum class D2Overlay(header: String, vararg headerHistory: String): D2Header {
 	
 	OVERLAY("overlay"),
 	ID("*ID"),
@@ -29,9 +29,11 @@ enum class D2Overlay(override val header: String): D2Header {
 	NUM_DIRECTIONS("NumDirections"),
 	LOCAL_BLOOD("LocalBlood");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/overlay.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/overlay.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = OVERLAY
 		const val HARDCODE = false
 		

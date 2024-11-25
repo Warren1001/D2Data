@@ -2,12 +2,12 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2Objects(override val header: String): D2Header {
+enum class D2Objects(header: String, vararg headerHistory: String): D2Header {
 	
 	CLASS("Class"),
 	NAME("Name"),
 	DESCRIPTION("*Description"),
-	ID("*ID"),
+	ID("*ID", "Id"),
 	TOKEN("Token"),
 	SELECTABLE_0("Selectable0"),
 	SELECTABLE_1("Selectable1"),
@@ -152,10 +152,12 @@ enum class D2Objects(override val header: String): D2Header {
 	OPEN_WARP("OpenWarp"),
 	AUTO_MAP("AutoMap");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/objects.txt".properSeparator()
-		val HEADERS = values().map { it.header }
-		val UNIQUE_HEADER = CLASS
+		val FILE_PATH = "data/global/excel/objects.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
+		val UNIQUE_HEADER = ID
 		const val HARDCODE = false
 		
 		val INFO = object: D2SheetInfo {

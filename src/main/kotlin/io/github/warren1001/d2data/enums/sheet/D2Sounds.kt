@@ -2,10 +2,10 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2Sounds(override val header: String): D2Header {
+enum class D2Sounds(header: String, vararg headerHistory: String): D2Header {
 	
 	SOUND("Sound"),
-	INDEX("*Index"),
+	INDEX("*Index", "Index"),
 	REDIRECT("Redirect"),
 	CHANNEL("Channel"),
 	FILE_NAME("FileName"),
@@ -43,10 +43,12 @@ enum class D2Sounds(override val header: String): D2Header {
 	DELAY("Delay"),
 	HEADER_4737("4737");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/sounds.txt".properSeparator()
-		val HEADERS = values().map { it.header }
-		val UNIQUE_HEADER = SOUND
+		val FILE_PATH = "data/global/excel/sounds.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
+		val UNIQUE_HEADER = INDEX
 		const val HARDCODE = false
 		
 		val INFO = object: D2SheetInfo {

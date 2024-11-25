@@ -1,8 +1,9 @@
-package io.github.warren1001.d2data
+package io.github.warren1001.d2data.file
 
 import io.github.warren1001.d2data.enums.sheet.*
-import io.github.warren1001.d2data.utils.ListConverter
-import io.github.warren1001.d2data.utils.SetDifference
+import io.github.warren1001.d2data.forEachFileDeep
+import io.github.warren1001.d2data.sheet.ListConverter
+import io.github.warren1001.d2data.util.SetDifference
 import java.io.File
 
 class D2Files(val dir: File, val listConverter: ListConverter = object : ListConverter {
@@ -13,26 +14,35 @@ class D2Files(val dir: File, val listConverter: ListConverter = object : ListCon
 	private val sheetInfos: MutableMap<String, D2SheetInfo> = mutableMapOf()
 	
 	private val jsons: MutableMap<String, D2Json> = mutableMapOf()
+	private val langs: MutableMap<String, D2Lang> = mutableMapOf()
 	
 	fun getSheet(relativePath: String) = sheets[relativePath.lowercase()]
 	
 	fun loadSheet(relativePath: String): D2Sheet {
 		val file = File(dir, relativePath)
+		val pathLowercase = relativePath.lowercase()
 		require(file.exists()) { "File $file does not exist" }
 		require(file.isFile) { "File $file is not a file" }
 		require(file.extension == "txt") { "File $file is not a TXT file" }
-		return sheets.computeIfAbsent(relativePath.lowercase()) { D2Sheet(this, file, sheetInfos[it]!!, listConverter) }
+		require(sheetInfos.contains(pathLowercase)) { "Missing sheet info for file $file" }
+		return sheets.computeIfAbsent(pathLowercase) { D2Sheet(this, file, sheetInfos[it]!!, listConverter) }
 	}
 	
-	private fun loadSheet(file: File): D2Sheet {
+	private fun loadSheet(file: File): D2Sheet? {
 		require(file.exists()) { "File $file does not exist" }
 		require(file.isFile) { "File $file is not a file" }
 		require(file.extension == "txt") { "File $file is not a TXT file" }
-		return sheets.computeIfAbsent(file.relativeTo(dir).path.lowercase()) { D2Sheet(this, file, sheetInfos[it]!!, listConverter) }
+		val key = file.relativeTo(dir).path.lowercase()
+		return if (sheetInfos.contains(key)) {
+			sheets.computeIfAbsent(key) { D2Sheet(this, file, sheetInfos[it]!!, listConverter) }
+		} else {
+			null
+		}
 	}
 	
 	fun loadAllSheets() {
 		dir.forEachFileDeep { if (it.extension == "txt") loadSheet(it) }
+		
 	}
 	
 	fun getJson(relativePath: String) = jsons[relativePath.lowercase()]
@@ -52,13 +62,21 @@ class D2Files(val dir: File, val listConverter: ListConverter = object : ListCon
 		return jsons.computeIfAbsent(file.relativeTo(dir).path.lowercase()) { D2Json(file) }
 	}
 	
-	fun loadAllJsons() {
-		dir.forEachFileDeep { if (it.extension == "json") loadJson(it) }
+	fun getLang(relativePath: String) = langs[relativePath.lowercase()]
+	
+	fun loadLang(relativePath: String): D2Lang {
+		val file = File(dir, relativePath)
+		require(file.exists()) { "File $file does not exist" }
+		require(file.isFile) { "File $file is not a file" }
+		require(file.extension == "json") { "File $file is not a JSON file" }
+		return langs.computeIfAbsent(relativePath.lowercase()) { D2Lang(file) }
 	}
 	
-	fun loadAll() {
-		loadAllSheets()
-		loadAllJsons()
+	private fun loadLang(file: File): D2Lang {
+		require(file.exists()) { "File $file does not exist" }
+		require(file.isFile) { "File $file is not a file" }
+		require(file.extension == "json") { "File $file is not a JSON file" }
+		return langs.computeIfAbsent(file.relativeTo(dir).path.lowercase()) { D2Lang(file) }
 	}
 	
 	fun saveAllSheets() = sheets.values.forEach { it.save() }
@@ -72,15 +90,34 @@ class D2Files(val dir: File, val listConverter: ListConverter = object : ListCon
 	
 	fun compareToNew(newSheets: D2Files) {
 		val difference = SetDifference(sheets.keys, newSheets.sheets.keys)
+		//println(sheets.keys.joinToString(", "))
+		//println(newSheets.sheets.keys.joinToString(", "))
 		difference.secondOnly.forEach { println("New sheet: $it") }
 		difference.firstOnly.forEach { println("Missing sheet: $it") }
 		difference.shared.forEach { sheets[it]!!.compare(newSheets.sheets[it]!!) }
 	}
 	
-	fun verify() = sheets.all { it.value.verify() }
+	fun verify(): Boolean {
+		var valid = true
+		for (sheet in sheets) {
+			val name = sheet.key
+			val columnDiff = sheet.value.getColumnDifference()
+			if (!columnDiff.hasNoDifference()) {
+				valid = false
+				if (columnDiff.firstOnly.isNotEmpty()) {
+					println("Sheet $name had extra columns: ${columnDiff.firstOnly.joinToString()}")
+				}
+				if (columnDiff.secondOnly.isNotEmpty()) {
+					println("Sheet $name is missing columns: ${columnDiff.secondOnly.joinToString()}")
+				}
+			}
+		}
+		return valid
+	}
 	
 	init {
 		sheetInfos[D2ActInfo.FILE_PATH] = D2ActInfo.INFO
+		sheetInfos[D2AnimData.FILE_PATH] = D2AnimData.INFO
 		sheetInfos[D2Armor.FILE_PATH] = D2Armor.INFO
 		sheetInfos[D2ArmType.FILE_PATH] = D2ArmType.INFO
 		sheetInfos[D2AutoMagic.FILE_PATH] = D2AutoMagic.INFO
@@ -170,16 +207,3 @@ class D2Files(val dir: File, val listConverter: ListConverter = object : ListCon
 	}
 	
 }
-
-fun File.forEachFileDeep(skipDirectories: List<String> = emptyList(), action: (File) -> Unit) {
-	require(isDirectory) { "File $this is not a directory" }
-	listFiles()?.forEach {
-		if (it.isDirectory) {
-			val relative = it.relativeTo(this).path
-			if (!skipDirectories.contains(relative)) it.forEachFileDeep(skipDirectories, action)
-		}
-		else action(it)
-	}
-}
-
-fun String.properSeparator() = replace("\\", File.separator).replace("/", File.separator)

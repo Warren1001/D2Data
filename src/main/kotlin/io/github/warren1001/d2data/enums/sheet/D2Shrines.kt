@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2Shrines(override val header: String): D2Header {
+enum class D2Shrines(header: String, vararg headerHistory: String): D2Header {
 	
 	NAME("Name"),
 	SHRINE_TYPE("*Shrine Type"),
@@ -18,10 +18,12 @@ enum class D2Shrines(override val header: String): D2Header {
 	EFFECTCLASS("effectclass"),
 	LEVEL_MIN("LevelMin");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/shrines.txt".properSeparator()
-		val HEADERS = values().map { it.header }
-		val UNIQUE_HEADER = NAME
+		val FILE_PATH = "data/global/excel/shrines.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
+		val UNIQUE_HEADER = CODE
 		const val HARDCODE = false
 		
 		val INFO = object: D2SheetInfo {

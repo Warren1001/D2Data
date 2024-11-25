@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2SkillDesc(override val header: String): D2Header {
+enum class D2SkillDesc(header: String, vararg headerHistory: String): D2Header {
 	
 	SKILL_DESC("skilldesc"),
 	SKILL_PAGE("SkillPage"),
@@ -125,9 +125,11 @@ enum class D2SkillDesc(override val header: String): D2Header {
 	ITEM_PROC_DESCLINE_COUNT("item proc descline count"),
 	EOL("*eol");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/skilldesc.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/skilldesc.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = SKILL_DESC
 		const val HARDCODE = false
 		

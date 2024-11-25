@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2MonAI(override val header: String): D2Header {
+enum class D2MonAI(header: String, vararg headerHistory: String): D2Header {
 	
 	AI("AI"),
 	AIP_1("*aip1"),
@@ -15,9 +15,11 @@ enum class D2MonAI(override val header: String): D2Header {
 	AIP_8("*aip8"),
 	EOL("*eol");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/monai.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/monai.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = AI
 		const val HARDCODE = true
 		

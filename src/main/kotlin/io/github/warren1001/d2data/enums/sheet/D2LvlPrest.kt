@@ -2,7 +2,7 @@ package io.github.warren1001.d2data.enums.sheet
 
 import io.github.warren1001.d2data.properSeparator
 
-enum class D2LvlPrest(override val header: String): D2Header {
+enum class D2LvlPrest(header: String, vararg headerHistory: String): D2Header {
 	
 	NAME("Name"),
 	DEF("Def"),
@@ -28,9 +28,11 @@ enum class D2LvlPrest(override val header: String): D2Header {
 	FILE_6("File6"),
 	DT_1_MASK("Dt1Mask");
 	
+	override val headerHistory: List<String> = listOf(header, *headerHistory)
+	
 	companion object {
-		val FILE_PATH = "global/excel/lvlprest.txt".properSeparator()
-		val HEADERS = values().map { it.header }
+		val FILE_PATH = "data/global/excel/lvlprest.txt".properSeparator()
+		val HEADERS = values().map { it.headerHistory }
 		val UNIQUE_HEADER = NAME
 		const val HARDCODE = false
 		
