@@ -8,7 +8,8 @@ import java.io.File
 class D2Lang(val file: File) {
 	
 	companion object {
-		val LANGUAGES = listOf("enUS", "esES", "esMX", "frFR", "deDE", "itIT", "jaJP", "plPL", "ptBR", "ruRU", "koKR", "zhTW")
+		val LANGUAGES = mapOf("enUS" to "English", "esES" to "Spanish", "esMX" to "SpanishMexican", "frFR" to "French", "deDE" to "German", "itIT" to "Italian", "jaJP" to "Japanese",
+			"plPL" to "Polish", "ptBR" to "Portuguese", "ruRU" to "Russian", "koKR" to "Korean", "zhTW" to "ChineseTraditional", "zhCN" to "ChineseSimplified")
 		val mapper = ObjectMapper().also {
 			it.enable(JsonReadFeature.ALLOW_JAVA_COMMENTS.mappedFeature())
 			it.enable(JsonReadFeature.ALLOW_TRAILING_COMMA.mappedFeature())
@@ -22,7 +23,7 @@ class D2Lang(val file: File) {
 	}
 	
 	val name = file.nameWithoutExtension
-	private val strings: Map<String, MultiLangString> = file.readText(Charsets.UTF_8).replace("\uFEFF", "").let {
+	val strings: Map<String, MultiLangString> = file.readText(Charsets.UTF_8).replace("\uFEFF", "").let {
 		try {
 			mapper.readTree(it)
 		} catch (e: Exception) {

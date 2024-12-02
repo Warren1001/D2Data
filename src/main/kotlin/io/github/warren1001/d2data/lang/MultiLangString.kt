@@ -36,4 +36,10 @@ class MultiLangString(private val key: String, private val strings: MutableMap<S
 		return true
 	}
 	
+	override fun hashCode(): Int {
+		var result = key.hashCode()
+		result = 31 * result + strings.hashCode()
+		return result
+	}
+	
 }

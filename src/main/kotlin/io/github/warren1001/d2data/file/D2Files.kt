@@ -79,6 +79,13 @@ class D2Files(val dir: File, val listConverter: ListConverter = object : ListCon
 		return langs.computeIfAbsent(file.relativeTo(dir).path.lowercase()) { D2Lang(file) }
 	}
 	
+	fun loadAllAsLang(relativePath: String): D2LangMaster {
+		val file = File(dir, relativePath)
+		require(file.exists()) { "File $file does not exist" }
+		require(file.isDirectory) { "File $file is not a directory" }
+		return D2LangMaster(file.listFiles { subFile, fileName -> fileName.endsWith(".json") }!!.map { subFile -> loadLang(subFile) })
+	}
+	
 	fun saveAllSheets() = sheets.values.forEach { it.save() }
 	
 	fun saveAllJsons() = jsons.values.forEach { it.save() }
